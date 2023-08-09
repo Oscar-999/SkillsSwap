@@ -11,6 +11,8 @@ class Skill(db.Model):
     description = db.Column(db.String(255), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     skill_image = db.Column(db.String(255))
+    secondary_image = db.Column(db.String(255))  # New image field
+    third_image = db.Column(db.String(255))  # Another new image field
     price = db.Column(db.Integer)
 
     owner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
@@ -28,9 +30,9 @@ class Skill(db.Model):
             'id': self.id,
             'name': self.name,
             'description': self.description,
-
-
             'skill_image': self.skill_image,
+            'secondary_image': self.secondary_image,
+            'third_image': self.third_image,  
             'price': self.price
         }
 
