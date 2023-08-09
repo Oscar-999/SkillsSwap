@@ -1,0 +1,73 @@
+.LandingPage {
+    text-align: center;
+  }
+
+  .App {
+    margin-top: 0px;
+    background-color: #E4E7EB;
+    padding-top: 70px;
+  }
+
+  .App-header {
+    background-color: #282c34;
+    padding: 20px;
+    color: white;
+  }
+
+  .buttons {
+    margin-top: 10px;
+  }
+
+  .freelance-box {
+    display: flex;
+    text-align: center;
+    padding-left: 200px;
+
+  }
+
+  .freelance-content {
+    max-width: 500px;
+  }
+
+  .freelance-innerbox {
+    background-color: white;
+    padding: 60px;
+    border-radius: 100px;
+  }
+
+  .request-innerbox {
+    background-color: white;
+    padding: 60px;
+    border-radius: 100px;
+  }
+
+
+
+  .request-box {
+    display: flex;
+    text-align: center;
+    padding-left: 700px;
+    margin-top: 100px;
+  }
+
+  .request-content {
+    max-width: 500px;
+  }
+
+  .freelancer-image img,
+  .request-image img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .find-button {
+    background-color: #2BB0ED;
+    width: 100px;
+    height: 30px;
+  }
+
+  .join-button {
+    background-color: #2BB0ED;
+    width: 100px;
+    height: 30px;
+  }
