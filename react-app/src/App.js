@@ -7,6 +7,7 @@ import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import ProtectedRoute from './components/auth/ProtectedRoute'
 import Explore from "./components/Skills/Explore/Explore";
+import LandingPage from "./components/LandingPage/LandingPage";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -19,13 +20,8 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
+          <Route path="/" component={LandingPage}/>
           <ProtectedRoute path="/skills" component={Explore}/>
-          <Route path="/login" >
-            <LoginFormPage />
-          </Route>
-          <Route path="/signup">
-            <SignupFormPage />
-          </Route>
 
         </Switch>
       )}
@@ -34,3 +30,10 @@ function App() {
 }
 
 export default App;
+
+          // <Route path="/signup">
+          //   <SignupFormPage />
+          // </Route>
+{/* <Route path="/login" >
+  <LoginFormPage />
+</Route> */}
