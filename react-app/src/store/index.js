@@ -1,9 +1,10 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import session from './session'
-
+import skillsReducer from './skill';
 const rootReducer = combineReducers({
   session,
+  skills: skillsReducer,
 });
 
 
