@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 8fa771dddb65
+Revision ID: 5031bdea049a
 Revises:
-Create Date: 2023-08-09 10:37:20.683494
+Create Date: 2023-08-09 11:29:39.667376
 
 """
 from alembic import op
@@ -11,9 +11,8 @@ import sqlalchemy as sa
 import os
 environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get("SCHEMA")
-
 # revision identifiers, used by Alembic.
-revision = '8fa771dddb65'
+revision = '5031bdea049a'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -70,7 +69,7 @@ def upgrade():
     if environment == "production":
         op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE skills SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE memberships SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE reviews SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE service_requests SET SCHEMA {SCHEMA};")
 
 def downgrade():
