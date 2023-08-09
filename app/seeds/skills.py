@@ -1,6 +1,7 @@
 from app.models import db, Skill, environment, SCHEMA
 from sqlalchemy.sql import text
 
+
 def seed_skills():
     for skill in [
         {
@@ -40,6 +41,7 @@ def seed_skills():
         },
     ]:
         db.session.add(Skill(**skill))
+
 
     db.session.commit()
 

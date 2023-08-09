@@ -9,9 +9,11 @@ def seed_users():
     oscar = User(
         username='Oscar', email='oscar@gmail.com', password='password', profile_picture='')
     bobbie = User(
+
         username='Bobbie', email='bobbie@aa.io', password='password', profile_picture='')
     josh = User(
         username='Josh', email="josh@gmail.com", password="passcode", profile_picture="")
+
     Emily = User(
         username="Emily", email="emily@example.com", password="passcode", profile_picture=""
     )
@@ -30,7 +32,8 @@ def seed_users():
 # it will reset the primary keys for you as well.
 def undo_users():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.users RESTART IDENTITY CASCADE;")
+        db.session.execute(
+            f"TRUNCATE table {SCHEMA}.users RESTART IDENTITY CASCADE;")
     else:
         db.session.execute(text("DELETE FROM users"))
 

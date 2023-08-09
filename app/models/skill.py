@@ -12,12 +12,12 @@ class Skill(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     skill_image = db.Column(db.String(255))
     price = db.Column(db.Integer)
+
     owner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
 
     user = db.relationship('User', back_populates='skills')
     reviews = db.relationship('Review', back_populates='skill', cascade="all, delete-orphan")
     service_requests = db.relationship('ServiceRequest', back_populates='skill',cascade="delete-orphan, all")
-
 
 
     def __repr__(self):
@@ -28,6 +28,8 @@ class Skill(db.Model):
             'id': self.id,
             'name': self.name,
             'description': self.description,
+
+
             'skill_image': self.skill_image,
             'price': self.price
         }

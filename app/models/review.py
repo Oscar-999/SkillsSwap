@@ -14,7 +14,6 @@ class Review(db.Model):
 
     user = db.relationship('User', back_populates='reviews')
     skill = db.relationship('Skill', back_populates='reviews')
-
     def __repr__(self):
         return f"<Review id:{self.id} reviewer_id:{self.reviewer_id}>"
 

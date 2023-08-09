@@ -17,9 +17,11 @@ class User(db.Model, UserMixin):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
 
+
     skills = db.relationship('Skill', back_populates='user',  cascade="delete-orphan, all")
     reviews = db.relationship('Review', back_populates='user',  cascade="delete-orphan, all")
     service_requests = db.relationship('ServiceRequest', back_populates='user', cascade="delete-orphan, all")
+
 
     @property
     def password(self):

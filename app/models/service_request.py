@@ -9,6 +9,7 @@ class ServiceRequest(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
+
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     skill_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('skills.id')), nullable=False)
     request_description = db.Column(db.String)
@@ -21,3 +22,4 @@ class ServiceRequest(db.Model):
 
     user = db.relationship('User', back_populates='service_requests')
     skill = db.relationship('Skill', back_populates='service_requests')
+
