@@ -1,8 +1,8 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-
-
+from datetime import datetime
+from .users_skills import user_skills
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
@@ -13,6 +13,20 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+    profile_picture = db.Column(db.String(250), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    skills = db.relationship('Skill', secondary=user_skills, back_populates='users', cascade='all, delete-orphan')
+    reviews = db.relationship('Review', back_populates='reviewer', cascade='all, delete-orphan')
+    service_requests = db.relationship('ServiceRequest', back_populates='user', cascade='all, delete-orphan')
+
+
+
+    def __repr__(self):
+        return f"< User: {self.username} ID: {self.id}>"
+
+    def __str__(self):
+        return f"< User: {self.username} ID: {self.id}>"
 
     @property
     def password(self):
@@ -29,5 +43,6 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email
+            'email': self.email,
+            'profilePic': self.profile_picture
         }
