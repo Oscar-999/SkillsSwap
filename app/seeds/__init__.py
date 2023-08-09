@@ -25,12 +25,10 @@ def seed():
 
         undo_reviews()
         undo_service_requests()
-
         undo_skills()
         undo_users()
     seed_users()
     seed_skills()
-
     seed_service_requests()
     seed_reviews()
 
@@ -45,4 +43,3 @@ def undo():
     undo_skills()
     undo_users()
     # Add other undo functions here
-
