@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
-import SignupFormPage from "./components/SignupFormPage";
+// import SignupFormPage from "./components/SignupFormPage";
 import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import ProtectedRoute from './components/auth/ProtectedRoute'
 import Explore from "./components/Skills/Explore/Explore";
 import LandingPage from "./components/LandingPage/LandingPage";
+import SingleSkill from "./components/Skills/IndiviudalSkill/IndivudalSkill";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -20,8 +21,10 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-          <Route path="/" component={LandingPage}/>
-          <ProtectedRoute path="/skills" component={Explore}/>
+          <Route  exact path="/" component={LandingPage}/>
+          <Route path="/login" component={LoginFormPage}/>
+          <ProtectedRoute exact path="/skills" component={Explore}/>
+          <ProtectedRoute exact path="/skills/:skillId" component={SingleSkill}/>
 
         </Switch>
       )}
