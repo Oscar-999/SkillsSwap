@@ -1,4 +1,6 @@
+import React from 'react'
 import "./LandingPage.css";
+import {NavLink} from 'react-router-dom'
 const LandingPage = () => {
   return (
     <div className="App">
@@ -12,7 +14,8 @@ const LandingPage = () => {
               or creating, our network of professionals is here to deliver
               quality services. Say goodbye to the hassle of searching.
             </p>
-            <button className="find-button">Hire Now</button>
+
+            <NavLink to="/skills" className="find-button">Hire Now</NavLink>
           </div>
           <div className="freelancer-image">
             <img src="" alt="" />
