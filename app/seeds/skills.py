@@ -4,40 +4,50 @@ from sqlalchemy.sql import text
 
 def seed_skills():
     for skill in [
-        {
+       {
             "name": 'Programming',
             "description": 'Creating websites and web applications',
             "price": 15,
             "owner_id": 2,
-            "skill_image": ""
+            "skill_image": "",
+            "secondary_image": "",
+            "third_image": ""
         },
         {
             "name": 'Graphic Design',
             "description": 'Creating visual content and designs',
             "price": 20,
             "owner_id": 3,
-            "skill_image": ""
+            "skill_image": "",
+            "secondary_image": "",
+            "third_image": ""  
         },
         {
             "name": 'Writing',
             "description": 'Content creation',
             "price": 50,
             "owner_id": 1,
-            "skill_image": ""
+            "skill_image": "",
+            "secondary_image": "",  # Add this field
+            "third_image": ""  # Add this field
         },
         {
             "name": 'Video Editor',
             "description": 'Editing videos',
             "price": 30,
             "owner_id": 4,
-            "skill_image": ""
+            "skill_image": "",
+            "secondary_image": "",  # Add this field
+            "third_image": ""  # Add this field
         },
         {
-            "name": 'Photogrphy',
+            "name": 'Photography',
             "description": 'Beautiful photos for a low price',
             "price": 45,
             "owner_id": 5,
-            "skill_image": ""
+            "skill_image": "",
+            "secondary_image": "",  # Add this field
+            "third_image": ""  # Add this field
         },
     ]:
         db.session.add(Skill(**skill))
