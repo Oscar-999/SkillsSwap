@@ -9,6 +9,7 @@ import ProtectedRoute from './components/auth/ProtectedRoute'
 import Explore from "./components/Skills/Explore/Explore";
 import LandingPage from "./components/LandingPage/LandingPage";
 import SingleSkill from "./components/Skills/IndiviudalSkill/IndivudalSkill";
+import ErrorPage from "./components/ErrorPage/ErrorPage";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -25,7 +26,7 @@ function App() {
           <Route path="/login" component={LoginFormPage}/>
           <ProtectedRoute exact path="/skills" component={Explore}/>
           <ProtectedRoute exact path="/skills/:skillId" component={SingleSkill}/>
-
+          <Route path="*" component={ErrorPage}/>
         </Switch>
       )}
     </>

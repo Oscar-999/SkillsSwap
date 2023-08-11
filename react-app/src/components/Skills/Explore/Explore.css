@@ -1,0 +1,82 @@
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* flex-direction: column; */
+}
+
+.explore-welcome {
+    background-color: #E4E7EB;
+}
+
+.explore-welcome h1 {
+    font-size: 30px;
+    text-align: center;
+}
+
+.skill-list {
+    background-color: #E4E7EB;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+    padding: 20px;
+}
+
+.skill {
+    display: flex;
+    border: 1px solid #9aa5b1;
+    border-radius: 8px;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 9);
+    transition: transform 0.2s ease-in-out;
+}
+
+.skill .image {
+    flex: none;
+}
+
+.skill .image img {
+    width: 370px;
+    height: 350px;
+    object-fit: cover;
+}
+
+.skill:hover {
+    transform: translateY(-5px);
+    box-shadow: 0, 6px, 12px, rgba(0, 0, 0, 0.1);
+}
+
+.image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.details {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.skill-name {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.skill-description {
+    font-size: 14px;
+    color: #555;
+}
+
+.skill-price {
+    font-size: 16px;
+    color: #DA127d;
+}
+
+li {
+    margin: 5px 0;
+}
+
+

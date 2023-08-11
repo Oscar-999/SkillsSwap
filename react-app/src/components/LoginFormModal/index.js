@@ -3,6 +3,7 @@ import { login } from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./LoginForm.css";
+import panelImage from "./assets/images/freelance.avif"
 
 function LoginFormModal() {
   const dispatch = useDispatch();
@@ -17,12 +18,16 @@ function LoginFormModal() {
     if (data) {
       setErrors(data);
     } else {
-        closeModal()
+      closeModal()
     }
   };
 
   return (
-    <>
+    <div className="login-form">
+    <div className="image-container">
+      <img src={panelImage} alt="" className="panel-image" />
+    </div>
+    <div className="form-container">
       <h1>Log In</h1>
       <form onSubmit={handleSubmit}>
         <ul>
@@ -50,7 +55,8 @@ function LoginFormModal() {
         </label>
         <button type="submit">Log In</button>
       </form>
-    </>
+    </div>
+  </div>
   );
 }
 
