@@ -6,7 +6,7 @@ from flask_wtf.file import FileFiled, FileAllowed
 from ..api.AWS_helpers import ALLOWED_EXTENSIONS
 
 
-class CreateSkillForm(FlaskForm):
+class UpdateSkillForm(FlaskForm):
     name = StringField("Name", validators=[DataRequired()])
     price = IntegerField("Price", validators=[DataRequired()])
     skill_image = FileFiled("Skill Image", validators=[FileAllowed(list(ALLOWED_EXTENSIONS))])

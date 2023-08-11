@@ -19,8 +19,9 @@ const Explore = () => {
 
   return (
     <main>
-      <ul>
         <h1>Welcome</h1>
+
+      <ul className="skill-list">
         {skillsList.length > 0 &&
           skillsList.map((skill) => (
             <div key={skill.id} className="skill" title={skill.name}>

@@ -1,73 +1,91 @@
 .LandingPage {
-    text-align: center;
-  }
+  text-align: center;
+}
 
-  .App {
-    margin-top: 0px;
-    background-color: #E4E7EB;
-    padding-top: 70px;
-  }
+.App {
+  margin-top: 0px;
+  background-color: #E4E7EB;
+  padding-top: 70px;
+}
 
-  .App-header {
-    background-color: #282c34;
-    padding: 20px;
-    color: white;
-  }
+.App-header {
+  background-color: #282c34;
+  padding: 20px;
+  color: white;
+}
 
-  .buttons {
-    margin-top: 10px;
-  }
+.buttons {
+  margin-top: 10px;
+}
 
-  .freelance-box {
-    display: flex;
-    text-align: center;
-    padding-left: 200px;
+.freelance-box {
+  display: flex;
+  text-align: center;
+  padding-left: 200px;
 
-  }
+}
 
-  .freelance-content {
-    max-width: 500px;
-  }
+.freelance-content {
+  max-width: 500px;
+}
 
-  .freelance-innerbox {
-    background-color: white;
-    padding: 60px;
-    border-radius: 100px;
-  }
+.freelance-innerbox {
+  background-color: white;
+  padding: 60px;
+  border-radius: 100px;
+}
 
-  .request-innerbox {
-    background-color: white;
-    padding: 60px;
-    border-radius: 100px;
-  }
+.request-innerbox {
+  background-color: white;
+  padding: 60px;
+  border-radius: 100px;
+}
 
 
 
-  .request-box {
-    display: flex;
-    text-align: center;
-    padding-left: 700px;
-    margin-top: 100px;
-  }
+.request-box {
+  display: flex;
+  text-align: center;
+  padding-left: 700px;
+  margin-top: 100px;
+}
 
-  .request-content {
-    max-width: 500px;
-  }
+.request-content {
+  max-width: 500px;
+}
 
-  .freelancer-image img,
-  .request-image img {
-    max-width: 100%;
-    height: auto;
-  }
+.freelancer-image img,
+.request-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 20px;
+}
 
-  .find-button {
-    background-color: #2BB0ED;
-    width: 100px;
-    height: 30px;
-  }
+.find-button,
+.join-button {
+  display: inline-block;
+  padding: 8px 20px;
+  background-color: #2BB0ED;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+  margin-top: 15px;
+}
 
-  .join-button {
-    background-color: #2BB0ED;
-    width: 100px;
-    height: 30px;
-  }
+.find-button:hover,
+.join-button:hover {
+  background-color: #218ACB;
+}
+
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  color: #DA127D;
+}

@@ -1,0 +1,43 @@
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.skill-list{
+    background-color: #E4E7EB;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+    padding: 0;
+}
+
+.skill {
+    border: 1px solid #9aa5b1;
+    border-radius: 8px;
+    padding: 30px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 9);
+    transition: transform 0.2s ease-in-out;
+}
+
+.skill:hover {
+    transform: translateY(-5px);
+}
+
+.image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.details {
+    margin-top: 10px;
+}
+
+li {
+    margin: 5px 0;
+}
+
+
