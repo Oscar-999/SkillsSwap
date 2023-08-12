@@ -70,16 +70,15 @@ function SignupFormPage() {
         <div >
           <h2>Create an account</h2>
           <form className='' encType='multipart/form-data' onSubmit={handleSubmit}>
-          <ul className="signuperrorc">
+          <ul className=''>
 {errors.map((error, idx) => (
-  <li className="signuperror" key={idx}>{error}</li>
+  <li className="" key={idx}>{error}</li>
 ))}
 </ul>
 
             <label>
               <h5>
                 Email <i style={{ color: 'red' }}>*</i>
-
               </h5>
               <input
                 type="email"
