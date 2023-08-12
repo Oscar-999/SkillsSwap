@@ -29,7 +29,7 @@ const Explore = () => {
             <div key={skill.id} className="skill" title={skill.name}>
               <Link to={`/skills/${skill.id}`}>
                 <div className="image">
-                  <img src={skill.skill_image} alt="skill" />
+                  <img src={skill.skillImage} alt="skill" />
                 </div>
                 <div className="details">
 
@@ -38,7 +38,7 @@ const Explore = () => {
                   <li className="skill-price">Price: ${skill.price}</li>
                 </div>
 
-                
+
               </Link>
             </div>
           ))}
