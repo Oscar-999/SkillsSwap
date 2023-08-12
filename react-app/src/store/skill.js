@@ -1,6 +1,9 @@
 // action types -------------------------------------------------------
 const LOAD_ALL_SKILLS = "skillswap/skills/LOAD_ALL_SKILLS";
 const LOAD_SINGLE_SKILL = "skillswap/skills/LOAD_SINGLE_SKILL"
+const UPDATE_SKILL = "skillswap/skills/UPDATE_SKILL"
+const CREATE_SKILL = "skillswap/skills/CREATE_SKILL"
+const DELETE_SKILL = "skillswap/skills/DELETE_SKILL"
 // action creators ---------------------------------------------------
 
 export const loadAllSkillsAction = (skills) => {
@@ -17,6 +20,26 @@ export const loadSingleSkillAction =(skill) => {
   }
 }
 
+export const updateSkillAction = (skill) => {
+  return {
+    type: UPDATE_SKILL,
+    skill
+  }
+}
+
+export const createSkillAction = (skill) => {
+  return {
+    type: CREATE_SKILL,
+    skill
+  }
+}
+
+export const deleteSkillAction = (skillId) => {
+  return {
+    type: DELETE_SKILL,
+    skillId
+  }
+}
 // thunk action creators ---------------------------
 
 export const loadAllSkillsThunk = () => async (dispatch) => {
@@ -55,6 +78,50 @@ export const loadSingleSkillThunk = (skillId) => async (dispatch) => {
   }
 }
 
+export const updateSkillThunk = (form) => async (dispatch) => {
+  const res = await fetch(`/api/skills/${form.get('id')}`, {
+    method: "PUT",
+    body: form,
+  });
+  const updatedSkill = await res.json();
+  if (res.ok) {
+    dispatch(updateSkillAction(updatedSkill));
+    return updatedSkill;
+  } else {
+    return updatedSkill
+  }
+}
+
+export const createSkillThunk = (formData) => async (dispatch) => {
+  const res = await fetch("/api/skills/create", {
+    method: "POST",
+    body: formData
+  })
+
+  const skillData = await res.json();
+
+  if (res.ok) {
+    dispatch(createSkillAction(skillData));
+    return skillData;
+  } else {
+    return skillData.errors
+  }
+}
+
+export const deleteSkillThunk = (skillId) => async(dispatch) => {
+  const res = await fetch(`/api/skills/${skillId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+  if (res.ok) {
+    dispatch(deleteSkillAction(skillId))
+  } else {
+    const errors = await res.json();
+    return errors;
+  }
+}
 // reducer----------------------------------------------------------------------------------------------------------
 const initialState = { allSkills: {}, singleSkill: {} };
 // --------------------------------------------------------------------------------------------------------

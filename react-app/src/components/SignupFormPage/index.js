@@ -3,6 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { signUp } from "../../store/session";
 import './SignupForm.css';
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
+
+function isValidImage(fileName) {
+  const validEndings = ['.jpg', '.jpeg', '.png'];
+  for (const ending of validEndings) if (fileName.endsWith(ending)) return true;
+
+  return false;
+};
 
 function SignupFormPage() {
   const dispatch = useDispatch();
@@ -11,68 +19,121 @@ function SignupFormPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [profileImage, setProfileImage] = useState('');
   const [errors, setErrors] = useState([]);
 
   if (sessionUser) return <Redirect to="/" />;
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (password === confirmPassword) {
-        const data = await dispatch(signUp(username, email, password));
-        if (data) {
-          setErrors(data)
-        }
-    } else {
-        setErrors(['Confirm Password field must be the same as the Password field']);
-    }
+    const newErrors = [];
+    console.log({
+      "username": username,
+      "password": password,
+      "email": email,
+      "profileImage": profileImage,
+      "confirmPassword": confirmPassword,
+      "errors": errors
+    })
+
+    if (!username.length) newErrors.push("Must include username");
+    if (!password.length) newErrors.push("Must include password");
+    if (!email.length || !email.includes("@")) newErrors.push("Must include a valid email");
+    if (!profileImage.length || !isValidImage(profileImage)) newErrors.push("Image URL must end in .png, .jpg, or .jpeg");
+    if (username.length < 1 || 40 < username.length) newErrors.push("Username must be between 1 and 40 characters.");
+    if (password !== confirmPassword) newErrors.push("Passwords must match");
+    if (password.length < 1 || 255 < password.length) newErrors.push("Password must be between 1 and 255 characters");
+    if (profileImage.length > 255) newErrors.push("Max URL length exceeded (must be less than 255 characters)");
+
+    if (!newErrors.length) {
+      const form = new FormData();
+      form.append("email", email);
+      form.append("username", username);
+      form.append("password", password);
+      form.append("profile_picture", profileImage);
+
+      console.log(form);
+      const data = await dispatch(signUp(form));
+      if (data) {
+        setErrors(data);
+      }
+    };
+
+    setErrors(newErrors);
   };
 
   return (
-    <>
-      <h1>Sign Up</h1>
-      <form onSubmit={handleSubmit}>
-        <ul>
-          {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-        </ul>
-        <label>
-          Email
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Username
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Confirm Password
-          <input
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
-        </label>
-        <button type="submit">Sign Up</button>
-      </form>
-    </>
+    <div >
+    <div >
+      <div >
+        <div >
+          <h2>Create an account</h2>
+          <form className='' encType='multipart/form-data' onSubmit={handleSubmit}>
+          <ul className=''>
+{errors.map((error, idx) => (
+  <li className="" key={idx}>{error}</li>
+))}
+</ul>
+
+            <label>
+              <h5>
+                Email <i style={{ color: 'red' }}>*</i>
+              </h5>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </label>
+            <label>
+              <h5>Username  <i style={{ color: 'red' }}>*</i></h5>
+              <input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
+            </label>
+            <label>
+              <h5>ProfilePicture  <i style={{ color: 'red' }}>*</i></h5>
+              <input
+                type="text"
+                required
+                value={profileImage}
+                onChange={(e) => setProfileImage(e.target.value)}
+              />
+            </label>
+            <label>
+              <h5>Password  <i style={{ color: 'red' }}>*</i></h5>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </label>
+            <label>
+              <h5>Confirm Password  <i style={{ color: 'red' }}>*</i></h5>
+              <input
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+              />
+            </label>
+            <button type="submit" className=''>
+              Sign Up
+            </button>
+            <Link to="/login" className="sing">
+              Already have an account
+            </Link>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
   );
 }
 

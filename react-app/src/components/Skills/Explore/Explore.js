@@ -19,8 +19,11 @@ const Explore = () => {
 
   return (
     <main>
-      <ul>
-        <h1>Welcome</h1>
+      <div className="explore-welcome">
+        <h1>Skills for Hire</h1>
+      </div>
+
+      <ul className="skill-list">
         {skillsList.length > 0 &&
           skillsList.map((skill) => (
             <div key={skill.id} className="skill" title={skill.name}>
@@ -29,10 +32,13 @@ const Explore = () => {
                   <img src={skill.skill_image} alt="skill" />
                 </div>
                 <div className="details">
-                  <li>{skill.name}</li>
-                  <li>{skill.description}</li>
-                  <li>Price: ${skill.price}</li>
+
+                  <li className="skill-name">{skill.name}</li>
+                  <li className="skill-description">{skill.description}</li>
+                  <li className="skill-price">Price: ${skill.price}</li>
                 </div>
+
+                
               </Link>
             </div>
           ))}
