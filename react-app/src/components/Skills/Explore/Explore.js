@@ -32,11 +32,13 @@ const Explore = () => {
                   <img src={skill.skill_image} alt="skill" />
                 </div>
                 <div className="details">
-               
+
                   <li className="skill-name">{skill.name}</li>
                   <li className="skill-description">{skill.description}</li>
                   <li className="skill-price">Price: ${skill.price}</li>
                 </div>
+
+                
               </Link>
             </div>
           ))}

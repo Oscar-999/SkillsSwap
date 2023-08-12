@@ -23,3 +23,17 @@ class ServiceRequest(db.Model):
     user = db.relationship('User', back_populates='service_requests')
     skill = db.relationship('Skill', back_populates='service_requests')
 
+
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'userId': self.user_id,
+            'skillId': self.skill_id,
+            'requestDescription': self.request_description,
+            'budget': self.budget,
+            'name': self.name,
+            'reqImage': self.req_image,
+            'createdAt': self.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+            'updatedAt': self.updated_at.strftime('%Y-%m-%d %H:%M:%S')
+        }

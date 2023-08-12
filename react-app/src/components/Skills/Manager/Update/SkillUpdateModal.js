@@ -15,6 +15,7 @@ const SkillUpdateModal = ({ skill }) => {
   const [skillImage, setSkillImage] = useState("");
   const [secondaryImage, setSecondaryImage] = useState("");
   const [thirdImage, setThirdImage] = useState("");
+  // eslint-disable-next-line no-unused-vars
   const [error, setError] = useState(null);
   const [disableButton, setDisableButton] = useState(true);
 
@@ -64,14 +65,46 @@ const SkillUpdateModal = ({ skill }) => {
   return (
     <div>
       <h1>Update Skill</h1>
-      <form onSubmit={handleSubmit} encType="multipart/form-data">
+      <form className="" onSubmit={handleSubmit} encType="multipart/form-data">
         <label htmlFor="skill-description">New Skill Name</label>
         <input
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
-        <label htmlFor="server-description">New Server Description</label>
+        <label htmlFor="skill-price">New Price</label>
+        <input
+          type="number"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+        />
+        <label htmlFor="skill-description">New Server Description</label>
+        <input
+          type="text"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+        <label htmlFor="skill-image">New Skill Image</label>
+        <input
+          type="file"
+          onChange={(e) => setSkillImage(e.target.files[0])}
+          accept="image/*"
+        ></input>
+        <label htmlFor="secondary-image">New Secondary Image</label>
+        <input
+          type="file"
+          onChange={(e) => setSecondaryImage(e.target.files[0])}
+          accept="image/*"
+        />
+        <label htmlFor="third-image">New Third Image</label>
+        <input
+          type="file"
+          onChange={(e) => setThirdImage(e.target.files[0])}
+          accept="image/*"
+        />
+        <button type="submit" disabled={disableButton}>
+          Update Skill
+        </button>
       </form>
     </div>
   );

@@ -14,7 +14,6 @@ class Skill(db.Model):
     secondary_image = db.Column(db.String(255))  # New image field
     third_image = db.Column(db.String(255))  # Another new image field
     price = db.Column(db.Integer)
-
     owner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
 
     user = db.relationship('User', back_populates='skills')
@@ -30,10 +29,11 @@ class Skill(db.Model):
             'id': self.id,
             'name': self.name,
             'description': self.description,
-            'skill_image': self.skill_image,
-            'secondary_image': self.secondary_image,
-            'third_image': self.third_image,  
-            'price': self.price
+            'skillImage': self.skill_image,
+            'secondaryImage': self.secondary_image,
+            'thirdImage': self.third_image,
+            'price': self.price,
+            'ownerId': self.owner_id
         }
 
     def average_rating(self):
