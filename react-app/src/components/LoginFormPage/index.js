@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import './LoginForm.css';
 import freelanceImage from "./assets/images/freelancedesk.png"
+import { useModal } from "../../context/Modal";
 
 
 function LoginFormPage() {
@@ -12,6 +13,7 @@ function LoginFormPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
+  const { closeModal } = useModal();
 
   if (sessionUser) return <Redirect to="/" />;
 
@@ -21,6 +23,16 @@ function LoginFormPage() {
     if (data) {
       setErrors(data);
     }
+  };
+
+  function LoginDemoUser() {
+    const demoUserInfo = {
+      email: 'demo1@aa.io',
+      password: 'password'
+    }
+
+    return dispatch(login(demoUserInfo.email, demoUserInfo.password))
+      .then(closeModal);
   };
 
   return (
@@ -52,6 +64,9 @@ function LoginFormPage() {
             />
           </label>
           <button type="submit">Log In</button>
+          <div className="demo-login">
+            <button type='submit' onClick={LoginDemoUser}>Demo User</button>
+          </div>
         </form>
       </div>
       <div className="image-container">
