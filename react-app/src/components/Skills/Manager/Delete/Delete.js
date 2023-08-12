@@ -14,7 +14,7 @@ const DeleteMulti = ({type, id}) => {
     const delter = () => {
         try {
             if (type === "skill") {
-                dispatch(deleteSkillThunk(id))
+                dispatch(deleteSkillThunk(id)).then(() => history.push("/skills"));
             }
             return closeModal()
         } catch (e) {

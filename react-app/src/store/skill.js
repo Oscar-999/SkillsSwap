@@ -30,7 +30,7 @@ export const updateSkillAction = (skill) => {
 export const createSkillAction = (skill) => {
   return {
     type: CREATE_SKILL,
-    skill
+    payload: skill
   }
 }
 
@@ -143,6 +143,31 @@ const skillsReducer = (state = initialState, action) => {
           ...state,
           singleSkill: action.skill
         }
+        case CREATE_SKILL:
+          newState = { ...state };
+          let newSkill = action.payload;
+
+          newState.allSkills[newSkill.id] = newSkill;
+          newState.singleSkill = newSkill;
+          return newState;
+        case UPDATE_SKILL:
+          newState = {
+            ...state,
+            allSkills: {
+              ...state.allSkills,
+              [action.skill.id]: action.skill,
+            },
+          };
+          return newState;
+        case DELETE_SKILL:
+          newState = {
+            ...state,
+            singleSkill: {
+              ...state.allSkills
+            }
+          };
+          delete newState.allSkills[action.skill];
+          return newState;
     default:
       return state;
   }

@@ -38,7 +38,11 @@ def delete_skill(skillId):
 
     if current_user.id != skill.owner_id:
         return jsonify({'message': "You do not have permission to delete this skill"}), 403
+    
+    db.session.delete(skill)
+    db.session.commit()
 
+    return jsonify({'message': 'Skill deleted success'}), 200
 
 @login_required
 @skill_routes.route('/create', methods =['POST'])
