@@ -4,7 +4,7 @@ import { useModal } from "../../../../context/Modal";
 import { useEffect, useState } from "react";
 import { createSkillThunk } from "../../../../store/skill";
 
-const CreateSkillModal = ({}) => {
+const CreateSkillModal = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { closeModal } = useModal;
@@ -95,31 +95,29 @@ const CreateSkillModal = ({}) => {
         />
         <label htmlFor="skill-create-image">New Skill Image</label>
         <input
-          type="file"
-          name="skill-form-skill-image"
-          value={skillImage}
-          required
-          onChange={(e) => setSkillImage(e.target.files[0])}
-          accept="image/*"
-        ></input>
+  type="file"
+  name="skill-form-skill-image"
+  required
+  onChange={(e) => setSkillImage(e.target.files[0])}
+  accept="image/*"
+/>
         <label htmlFor="secondary-create-image">New Secondary Image</label>
         <input
-          type="file"
-          name="skill-form-secondary-image"
-          value={secondaryImage}
-          required
-          onChange={(e) => setSecondaryImage(e.target.files[0])}
-          accept="image/*"
-        />
+  type="file"
+  name="skill-form-secondary-image"
+  required
+  onChange={(e) => setSecondaryImage(e.target.files[0])}
+  accept="image/*"
+/>
         <label htmlFor="third-create-image">New Third Image</label>
-        <input
-          type="file"
-          name="skill-form-third-image"
-          value={thirdImage}
-          required
-          onChange={(e) => setThirdImage(e.target.files[0])}
-          accept="image/*"
-        />
+
+<input
+  type="file"
+  name="skill-form-third-image"
+  required
+  onChange={(e) => setThirdImage(e.target.files[0])}
+  accept="image/*"
+/>
         <button
           className=""
           id="skill-form-submit-button"
