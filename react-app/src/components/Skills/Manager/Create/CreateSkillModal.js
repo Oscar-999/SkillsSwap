@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useModal } from "../../../../context/Modal";
 import { useEffect, useState } from "react";
 import { createSkillThunk } from "../../../../store/skill";
-
+import "./CreateSkillModal.css"
 const CreateSkillModal = () => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -59,13 +59,13 @@ const CreateSkillModal = () => {
   }, [name, description]);
 
   return (
-    <div className="">
+    <div className="create-wrapper">
       <h1>Create a Skill</h1>
       {error.length
         ? error.map((e) => <p className="create-error">{e}</p>)
         : null}
 
-      <form className="" onSubmit={handleSubmit} encType="multipart/form-data">
+      <form className="form-box" onSubmit={handleSubmit} encType="multipart/form-data">
         <label htmlFor="skill-create-name">Skill Name</label>
         <input
           id=""
