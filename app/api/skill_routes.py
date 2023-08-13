@@ -16,6 +16,25 @@ def get_skills():
     return jsonify([skill.to_dict() for skill in skills])
 
 
+@skill_routes.route('/<int:skillId>/reviews', methods=['GET'])
+@login_required
+def get_skill_reviews(skillId):
+    """
+    Returns a list of all reviews for the specified skill.
+    """
+    skill = Skill.query.get(skillId)
+
+    if skill is None:
+        return jsonify({'message': "Skill doesn't exist"}), 404
+
+    review_list = []
+    for review in skill.reviews:
+        review_list.append(review.to_dict())
+
+    return jsonify(review_list)
+
+
+
 @login_required
 @skill_routes.route('/<int:skillId>', methods=['GET'])
 def get_single_skill(skillId):
@@ -38,7 +57,7 @@ def delete_skill(skillId):
 
     if current_user.id != skill.owner_id:
         return jsonify({'message': "You do not have permission to delete this skill"}), 403
-    
+
     db.session.delete(skill)
     db.session.commit()
 

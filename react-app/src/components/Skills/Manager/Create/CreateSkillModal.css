@@ -1,0 +1,19 @@
+.create-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 550px;
+    height: 600px;
+}
+.create-wrapper h1 {
+    margin-top: 0;
+    color: blue;
+    text-align: center;
+}
+
+.form-box {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    justify-content: center;
+}

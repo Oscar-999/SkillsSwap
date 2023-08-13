@@ -3,10 +3,12 @@ import thunk from 'redux-thunk';
 import session from './session'
 import skillsReducer from './skill';
 import requestsReducer from './request';
+import reviewsReducer from './review';
 const rootReducer = combineReducers({
   session,
   skills: skillsReducer,
   requests: requestsReducer,
+  reviews: reviewsReducer
 });
 
 

@@ -22,20 +22,18 @@ const Explore = () => {
     <main>
       <div className="explore-welcome">
         <h1>Skills for Hire</h1>
-      </div>
-
-      <ul className="skill-list">
-      <li className="squircle green-boi">
+      <li className="">
 
             <OpenModalButton
               modalComponent={<CreateSkillModal title="Create Skill" />}
-              buttonText="&#43;"
+              buttonText="Create Skill"
               className="open-create-server"
             />
-            <div className="popper-boi">
-              <h4 className="popper-text">Add Skill</h4>
-            </div>
+
           </li>
+      </div>
+
+      <ul className="skill-list">
         {skillsList.length > 0 &&
           skillsList.map((skill) => (
             <div key={skill.id} className="skill" title={skill.name}>
