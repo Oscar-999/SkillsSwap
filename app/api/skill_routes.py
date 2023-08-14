@@ -170,31 +170,22 @@ def edit_skill(skillId):
 @skill_routes.route('/<int:skill_id>/reviews', methods=["POST"])
 def create_review(skill_id):
     form = CreateReviewForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
+    form.csrf_token.data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
-        review_text = form.data['review_text']
-        stars = form.data['stars']
+        new_review= Review(
+            skill_id=skill_id,
+            reviewer_id=current_user.id,
+            review_text=form.data["review_text"],
+            stars=form.data["stars"]
 
-        try:
-            skill = Skill.query.get(skill_id)
+        )
+        print(new_review)
+        db.session.add(new_review)
+        db.session.commit()
 
-            if not skill:
-                return jsonify({"message": "Skill couldn't be found"}), 404
-
-            new_review = Review(
-                skill_id=skill.id,
-                reviewer_id=current_user.id,
-                review_text=review_text,
-                stars=stars
-            )
-            db.session.add(new_review)
-            db.session.commit()
-
-            return jsonify(new_review.to_dict()), 201
-
-        except Exception as error:
-            return jsonify({"message": "An error occurred", "error": str(error)}), 500
-    else:
-        errors = {field.name: field.errors for field in form}
-        return jsonify({"message": "Form validation failed", "errors": errors}), 400
+        return new_review.to_dict()
+    print(form.errors)
+    if form.errors:
+        return form.errors
+    return {"error": "An unknown error has occcured"} # need error messages
