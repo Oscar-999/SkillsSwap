@@ -4,10 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loadSingleSkillThunk } from '../../../store/skill';
 import { fetchReviews } from '../../../store/review';
 import './IndivudalSkill.css';
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 import OpenModalButton from '../../OpenModalButton';
 import SkillManger from '../Manager';
 
+const defaultImage = "https://t4.ftcdn.net/jpg/04/00/24/31/360_F_400243185_BOxON3h9avMUX10RsDkt3pJ8iQx72kS3.jpg"
 const SingleSkill = () => {
   const { skillId } = useParams();
   const dispatch = useDispatch();
@@ -42,16 +45,29 @@ const SingleSkill = () => {
             />
           ) : null}
         </h1>
-        <img
-          className="singleimgban"
-          src={skill.skillImage}
-          alt="Banner Image"
-        />
-        <img
-          className="singleimg"
-          src={skill.secondaryImage}
-          alt="Server Image"
-        />
+        <Carousel className="Carousel-images" renderThubmbs={() => null}>
+          <div>
+            <img
+              className="singleimgban"
+              src={skill.skillImage ||  defaultImage}
+              alt="Banner "
+            />
+          </div>
+          <div>
+            <img
+              className="singleimg"
+              src={skill.secondaryImage || defaultImage}
+              alt="Server "
+            />
+          </div>
+          <div>
+            <img
+              className="singleimg"
+              src={skill.thirdImage || defaultImage}
+              alt="Server "
+            />
+          </div>
+        </Carousel>
         <p className="server-name">{skill.description}</p>
       </div>
 
