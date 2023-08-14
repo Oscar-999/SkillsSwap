@@ -12,9 +12,9 @@ const SkillUpdateModal = ({ skill }) => {
   const [name, setName] = useState(skill.name);
   const [price, setPrice] = useState(skill.price);
   const [description, setDescription] = useState(skill.description);
-  const [skillImage, setSkillImage] = useState("");
-  const [secondaryImage, setSecondaryImage] = useState("");
-  const [thirdImage, setThirdImage] = useState("");
+  const [skillImage, setSkillImage] = useState();
+  const [secondaryImage, setSecondaryImage] = useState();
+  const [thirdImage, setThirdImage] = useState();
   // eslint-disable-next-line no-unused-vars
   const [error, setError] = useState(null);
   const [disableButton, setDisableButton] = useState(true);
@@ -38,9 +38,9 @@ const SkillUpdateModal = ({ skill }) => {
     form.append("name", name);
     form.append("price", price);
     form.append("description", description);
-    form.append("skillImage", skillImage);
-    form.append("secondaryImage", secondaryImage);
-    form.append("thirdImage", thirdImage);
+    form.append("skill_image", skillImage);
+    form.append("secondary_image", secondaryImage);
+    form.append("third_image", thirdImage);
     form.append("id", skill.id);
 
     dispatch(updateSkillThunk(form)).then((responseData) => {
