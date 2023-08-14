@@ -11,6 +11,7 @@ import OpenModalButton from '../../OpenModalButton';
 import SkillManger from '../Manager';
 
 const defaultImage = "https://t4.ftcdn.net/jpg/04/00/24/31/360_F_400243185_BOxON3h9avMUX10RsDkt3pJ8iQx72kS3.jpg"
+
 const SingleSkill = () => {
   const { skillId } = useParams();
   const dispatch = useDispatch();
@@ -27,60 +28,63 @@ const SingleSkill = () => {
   const userId = user.id;
   const isOwner = userId === skill.ownerId;
 
-  if (!skill) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <div>
-      <div className="friendsz">
-        <h1 className="server-name">
-          {skill.name}
-          {isOwner ? " " : null}
-          {isOwner ? (
-            <OpenModalButton
-              modalComponent={<SkillManger skill={skill} />}
-              buttonText="&#x2699;"
-              className={"server-emoji-button"}
-            />
-          ) : null}
-        </h1>
-        <Carousel className="Carousel-images" renderThubmbs={() => null}>
-          <div>
-            <img
-              className="singleimgban"
-              src={skill.skillImage ||  defaultImage}
-              alt="Banner "
-            />
-          </div>
-          <div>
-            <img
-              className="singleimg"
-              src={skill.secondaryImage || defaultImage}
-              alt="Server "
-            />
-          </div>
-          <div>
-            <img
-              className="singleimg"
-              src={skill.thirdImage || defaultImage}
-              alt="Server "
-            />
-          </div>
-        </Carousel>
-        <p className="server-name">{skill.description}</p>
-      </div>
+      {!skill ? (
+        <div>Loading...</div>
+      ) : (
+        <div className="friendsz">
+          <h1 className="server-name">
+            {skill.name}
+            {isOwner && (
+              <OpenModalButton
+                modalComponent={<SkillManger skill={skill} />}
+                buttonText="&#x2699;"
+                className={"server-emoji-button"}
+              />
+            )}
+          </h1>
+          <Carousel className="Carousel-images" renderThubmbs={() => null}>
+            <div>
+              <img
+                className="singleimgban"
+                src={skill.skillImage || defaultImage}
+                alt="Banner "
+              />
+            </div>
+            <div>
+              <img
+                className="singleimg"
+                src={skill.secondaryImage || defaultImage}
+                alt="Server "
+              />
+            </div>
+            <div>
+              <img
+                className="singleimg"
+                src={skill.thirdImage || defaultImage}
+                alt="Server "
+              />
+            </div>
+          </Carousel>
+          <p className="server-name">{skill.description}</p>
+        </div>
+      )}
 
       <div className="reviews-container">
         <h2>Reviews:</h2>
-        {reviews.map(review => (
-          <div key={review.id} className="review-item">
-            <p>{review.reviewText}</p>
-            <p>Reviewer ID: {review.reviewerId}</p>
-            <p>Created At: {review.createdAt}</p>
-            {/* Display other review properties */}
-          </div>
-        ))}
+        {reviews.length === 0 ? (
+          <p>No reviews available.</p>
+        ) : (
+          reviews.map((review) => (
+            <div key={review.id} className="review-item">
+              <p>{review.reviewText}</p>
+              <p>Reviewer ID: {review.reviewerId}</p>
+              <p>Created At: {review.createdAt}</p>
+              {/* Display other review properties */}
+            </div>
+          ))
+        )}
       </div>
     </div>
   );
