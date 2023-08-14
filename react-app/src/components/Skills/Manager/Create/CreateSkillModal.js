@@ -7,13 +7,13 @@ import "./CreateSkillModal.css"
 const CreateSkillModal = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { closeModal } = useModal;
+  const { closeModal } = useModal();
   const [name, setName] = useState("");
   const [price, setPrice] = useState(1);
   const [description, setDescription] = useState("");
-  const [skillImage, setSkillImage] = useState("");
-  const [secondaryImage, setSecondaryImage] = useState("");
-  const [thirdImage, setThirdImage] = useState("");
+  const [skillImage, setSkillImage] = useState(null);
+  const [secondaryImage, setSecondaryImage] = useState(null);
+  const [thirdImage, setThirdImage] = useState(null);
   // eslint-disable-next-line no-unused-vars
   const [error, setError] = useState({});
   const [disableButton, setDisableButton] = useState(true);
@@ -25,6 +25,9 @@ const CreateSkillModal = () => {
       newErrors.push("Name must be between 1 and 255 characters");
     if (!description.length || description.length > 255)
       newErrors.push("Name must be between 1 and 255 characters");
+    if (!skillImage || !secondaryImage || !thirdImage)
+      newErrors.push("Please add all three images");
+
     if (newErrors.length) {
       setError(newErrors);
       setDisableButton(true);
@@ -55,14 +58,17 @@ const CreateSkillModal = () => {
       newErrors.push("Name must be between 1 and 255 characters");
     if (!description.length || description.length > 255)
       newErrors.push("Description must be between 1 and 255 characters");
+    if (!skillImage || !secondaryImage || !thirdImage)
+      newErrors.push("Please add all three images");
+
     if (newErrors.length) setDisableButton(true);
-  }, [name, description]);
+  }, [name, description, secondaryImage,skillImage,thirdImage]);
 
   return (
     <div className="create-wrapper">
       <h1>Create a Skill</h1>
       {error.length
-        ? error.map((e) => <p className="create-error">{e}</p>)
+        ? error.map((e, index) => <p key={index} className="create-error">{e}</p>)
         : null}
 
       <form className="form-box" onSubmit={handleSubmit} encType="multipart/form-data">
@@ -95,29 +101,29 @@ const CreateSkillModal = () => {
         />
         <label htmlFor="skill-create-image">New Skill Image</label>
         <input
-  type="file"
-  name="skill-form-skill-image"
-  required
-  onChange={(e) => setSkillImage(e.target.files[0])}
-  accept="image/*"
-/>
+          type="file"
+          name="skill-form-skill-image"
+          required
+          onChange={(e) => setSkillImage(e.target.files[0])}
+          accept="image/*"
+        />
         <label htmlFor="secondary-create-image">New Secondary Image</label>
         <input
-  type="file"
-  name="skill-form-secondary-image"
-  required
-  onChange={(e) => setSecondaryImage(e.target.files[0])}
-  accept="image/*"
-/>
+          type="file"
+          name="skill-form-secondary-image"
+          required
+          onChange={(e) => setSecondaryImage(e.target.files[0])}
+          accept="image/*"
+        />
         <label htmlFor="third-create-image">New Third Image</label>
 
-<input
-  type="file"
-  name="skill-form-third-image"
-  required
-  onChange={(e) => setThirdImage(e.target.files[0])}
-  accept="image/*"
-/>
+        <input
+          type="file"
+          name="skill-form-third-image"
+          required
+          onChange={(e) => setThirdImage(e.target.files[0])}
+          accept="image/*"
+        />
         <button
           className=""
           id="skill-form-submit-button"
