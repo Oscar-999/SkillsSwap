@@ -47,7 +47,7 @@ const SkillUpdateModal = ({ skill }) => {
       if (responseData.error) {
         setError(responseData.error);
       } else {
-        history.push(`/`);
+        history.push(`/skills`);
         closeModal();
       }
     });
