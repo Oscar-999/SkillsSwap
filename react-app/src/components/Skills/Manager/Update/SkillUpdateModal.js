@@ -63,9 +63,9 @@ const SkillUpdateModal = ({ skill }) => {
   }, [name, description]);
 
   return (
-    <div>
+    <div className="update-wrapper">
       <h1>Update Skill</h1>
-      <form className="" onSubmit={handleSubmit} encType="multipart/form-data">
+      <form className="form-boxx" onSubmit={handleSubmit} encType="multipart/form-data">
         <label htmlFor="skill-description">New Skill Name</label>
         <input
           type="text"
@@ -102,7 +102,7 @@ const SkillUpdateModal = ({ skill }) => {
           onChange={(e) => setThirdImage(e.target.files[0])}
           accept="image/*"
         />
-        <button type="submit" disabled={disableButton}>
+        <button type="submit" className="updbtn" disabled={disableButton}>
           Update Skill
         </button>
       </form>

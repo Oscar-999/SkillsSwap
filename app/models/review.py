@@ -11,6 +11,7 @@ class Review(db.Model):
     reviewer_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     skill_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('skills.id')), nullable=False)
     review_text = db.Column(db.String(100))
+    stars = db.Column(db.Integer,nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow)
 
@@ -25,6 +26,7 @@ class Review(db.Model):
             'reviewerId': self.reviewer_id,
             'skillId': self.skill_id,
             'reviewText': self.review_text,
+            'stars':self.stars,
             'createdAt': self.created_at.strftime('%Y-%m-%d %H:%M:%S'),
             'updatedAt': self.updated_at.strftime('%Y-%m-%d %H:%M:%S')
         }
