@@ -24,13 +24,13 @@ const DeleteMulti = ({type, id}) => {
 
 
     return (
-        <div>
-            <h2>Are you sure you want to delete this {type === "skill" ? "skill" : "request"}</h2>
-            <h2>This wont be undone</h2>
-            <p>{errorMessage}</p>
+        <div className='delete-wrapper'>
+            <h2 className='delete-head'>Are you sure you want to delete this {type === "skill" ? "skill" : "request"}</h2>
+            <h2 className='warning'>This wont be undone</h2>
+            <p className='errors'>{errorMessage}</p>
             <div>
-                <button onClick={delter}> Delete it </button>
-                <button onClick={closeModal}>No cancel</button>
+                <button onClick={delter} className='deletionbuttn'> Delete it </button>
+                <button onClick={closeModal } className='cancelbttn'>No cancel</button>
             </div>
         </div>
     )
