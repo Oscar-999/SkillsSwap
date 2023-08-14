@@ -5,12 +5,12 @@ import { signUp } from "../../store/session";
 import './SignupForm.css';
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
-function isValidImage(fileName) {
-  const validEndings = ['.jpg', '.jpeg', '.png'];
-  for (const ending of validEndings) if (fileName.endsWith(ending)) return true;
+// function isValidImage(fileName) {
+//   const validEndings = ['.jpg', '.jpeg', '.png'];
+//   for (const ending of validEndings) if (fileName.endsWith(ending)) return true;
 
-  return false;
-};
+//   return false;
+// };
 
 function SignupFormPage() {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ function SignupFormPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [profileImage, setProfileImage] = useState('');
+  const [profilePic, setProfilePic] = useState();
   const [errors, setErrors] = useState([]);
 
   if (sessionUser) return <Redirect to="/" />;
@@ -32,7 +32,7 @@ function SignupFormPage() {
       "username": username,
       "password": password,
       "email": email,
-      "profileImage": profileImage,
+      "profilePic": profilePic,
       "confirmPassword": confirmPassword,
       "errors": errors
     })
@@ -40,18 +40,17 @@ function SignupFormPage() {
     if (!username.length) newErrors.push("Must include username");
     if (!password.length) newErrors.push("Must include password");
     if (!email.length || !email.includes("@")) newErrors.push("Must include a valid email");
-    if (!profileImage.length || !isValidImage(profileImage)) newErrors.push("Image URL must end in .png, .jpg, or .jpeg");
     if (username.length < 1 || 40 < username.length) newErrors.push("Username must be between 1 and 40 characters.");
     if (password !== confirmPassword) newErrors.push("Passwords must match");
     if (password.length < 1 || 255 < password.length) newErrors.push("Password must be between 1 and 255 characters");
-    if (profileImage.length > 255) newErrors.push("Max URL length exceeded (must be less than 255 characters)");
+    if (profilePic.length > 255) newErrors.push("Max URL length exceeded (must be less than 255 characters)");
 
     if (!newErrors.length) {
       const form = new FormData();
       form.append("email", email);
       form.append("username", username);
       form.append("password", password);
-      form.append("profile_picture", profileImage);
+      form.append("profile_picture", profilePic);
 
       console.log(form);
       const data = await dispatch(signUp(form));
@@ -99,10 +98,10 @@ function SignupFormPage() {
             <label>
               <h5>ProfilePicture  <i style={{ color: 'red' }}>*</i></h5>
               <input
-                type="text"
+                type="file"
                 required
-                value={profileImage}
-                onChange={(e) => setProfileImage(e.target.value)}
+                onChange={(e) => setProfilePic(e.target.files[0])}
+                accept="image/*"
               />
             </label>
             <label>
