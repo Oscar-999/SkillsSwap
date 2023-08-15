@@ -83,30 +83,27 @@ export const createReviewThunk =  formData => async (dispatch) => {
   }
 };
 
-export const updateReviewThunk = (reviewId, reviewData) => async (dispatch) => { // New thunk action for updating reviews
-  try {
-    const res = await fetch(`/api/reviews/${reviewId}`, {
+export const updateReviewThunk = (formData) => async (dispatch) => { // New thunk action for updating reviews
+  const submission = {};
+    if (formData.text) submission.text = formData.text;
+
+    const res = await fetch(`/api/reviews/${formData.reviewId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(reviewData),
+      body: JSON.stringify(submission),
     });
 
     if (res.ok) {
-      const updatedReview = await res.json();
-      dispatch(updateReviewAction(updatedReview));
-      return updatedReview;
-    } else {
-      const errorData = await res.json();
-      console.error("Error updating review:", errorData);
-      return errorData;
-    }
-  } catch (error) {
-    console.error("Error updating review:", error);
-    return { "message": "An error occurred while updating the review" };
+      const data = await res.json();
+      return dispatch(updateReviewAction(data));
+  } else {
+      const errors = await res.json();
+      return errors;
   }
 };
+
 
 // Initial State
 const initialState = {
@@ -118,7 +115,7 @@ const initialState = {
 
 // Reducer
 const reviewsReducer = (state = initialState, action) => {
-  
+
   switch (action.type) {
     case GET_REVIEWS:
       return {
