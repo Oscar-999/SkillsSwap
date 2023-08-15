@@ -2,7 +2,9 @@
 const GET_REVIEWS = "reviews/getReviews";
 const DELETE_REVIEW = "reviews/deleteReviews";
 const CREATE_REVIEW = 'reviews/createReviews';
-const UPDATE_REVIEW = 'reviews/updateReview'; // New action type for updating reviews
+const UPDATE_REVIEW = 'reviews/updateReview';
+const GET_ALL_USER_REVIEWS = "reviews/getAllUserReviews";
+
 
 // Action Creators
 export const getReviews = (reviews) => ({
@@ -23,6 +25,11 @@ export const createReviewAction = (review) => ({
 export const updateReviewAction = (updatedReview) => ({ // New action creator for updating reviews
   type: UPDATE_REVIEW,
   updatedReview,
+});
+
+export const getAllUserReviews = (userReviews) => ({
+  type: GET_ALL_USER_REVIEWS,
+  userReviews,
 });
 
 // Thunk Actions
@@ -104,13 +111,27 @@ export const updateReviewThunk = (formData) => async (dispatch) => { // New thun
   }
 };
 
+export const fetchAllUserReviewsThunk = () => async (dispatch) => {
+  try {
+    const res = await fetch(`/api/reviews/current`);
+
+    if (res.ok) {
+      const userReviews = await res.json();
+      dispatch(getAllUserReviews(userReviews));
+    }
+  } catch (error) {
+    console.error("Error fetching all user reviews:", error);
+  }
+};
 
 // Initial State
 const initialState = {
   skill: {
     reviews: [],
   },
-  user: {},
+  user: {
+    reviews: [],
+  },
 };
 
 // Reducer
@@ -154,6 +175,14 @@ const reviewsReducer = (state = initialState, action) => {
         skill: {
           ...state.skill,
           reviews: updatedReviewsAfterUpdate,
+        },
+      };
+      case GET_ALL_USER_REVIEWS:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          reviews: action.userReviews,
         },
       };
     default:

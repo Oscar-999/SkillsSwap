@@ -4,6 +4,7 @@ const LOAD_SINGLE_SKILL = "skillswap/skills/LOAD_SINGLE_SKILL"
 const UPDATE_SKILL = "skillswap/skills/UPDATE_SKILL"
 const CREATE_SKILL = "skillswap/skills/CREATE_SKILL"
 const DELETE_SKILL = "skillswap/skills/DELETE_SKILL"
+const LOAD_USER_SKILLS = "skillswap/skills/LOAD_USER_SKILLS";
 // action creators ---------------------------------------------------
 
 export const loadAllSkillsAction = (skills) => {
@@ -40,6 +41,15 @@ export const deleteSkillAction = (skillId) => {
     skillId
   }
 }
+
+export const loadUserSkillsAction = (skills) => {
+  return {
+    type: LOAD_USER_SKILLS,
+    skills,
+  };
+};
+
+
 // thunk action creators ---------------------------
 
 export const loadAllSkillsThunk = () => async (dispatch) => {
@@ -122,6 +132,19 @@ export const deleteSkillThunk = (skillId) => async(dispatch) => {
     return errors;
   }
 }
+
+export const loadUserSkillsThunk = () => async (dispatch) => {
+  const res = await fetch("/api/skills/current");
+
+  if (res.ok) {
+    const skillsData = await res.json();
+    dispatch(loadUserSkillsAction(skillsData));
+    return skillsData;
+  } else {
+    const errors = await res.json();
+    return errors;
+  }
+};
 // reducer----------------------------------------------------------------------------------------------------------
 const initialState = { allSkills: {}, singleSkill: {} };
 // --------------------------------------------------------------------------------------------------------
@@ -168,6 +191,12 @@ const skillsReducer = (state = initialState, action) => {
           };
           delete newState.allSkills[action.skill];
           return newState;
+          case LOAD_USER_SKILLS:
+            newState = { ...state, userSkills: {} };
+            action.skills.forEach(
+              (skill) => (newState.userSkills[skill.id] = skill)
+            );
+            return newState;
     default:
       return state;
   }
