@@ -1,69 +1,75 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createReviewThunk } from '../../../store/review'; // Make sure to import the correct action
-
-const CreateReview = ({ skillId, closeModal }) => {
+import { createReviewThunk, updateReviewThunk } from '../../../store/review';
+import {useModal} from '../../../context/Modal'
+const CreateReview = ({ type, formData }) => {
   const dispatch = useDispatch();
-  const user = useSelector(state => state.session.user);
+  const {closeModal} = useModal();
+  // const user = useSelector(state => state.session.user);
 
-  const [reviewText, setReviewText] = useState('');
-  const [stars, setStars] = useState('');
-  const [error, setError] = useState('');
+  const [text, setText] = useState(formData.text);
+  // const [stars, setStars] = useState(formData.description);
+  const [errors, setErrors] = useState({});
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!reviewText || !stars) {
-      setError('Both review text and stars are required.');
-      return;
-    }
-
-    const reviewData = {
-      reviewText,
-      stars: parseInt(stars),
-      skillId,
-      userId: user.id
+    const submission = {
+      text,
+      // stars
     };
 
-    const result = await dispatch(createReviewThunk(reviewData));
-
-    if (result && result.error) {
-      setError('An error occurred while creating the review.');
-    } else {
-      // Reset the form fields
-      setReviewText('');
-      setStars('');
-      setError('');
-      closeModal(); // Close the modal after successful submission
-    }
+    if (type === "create") {
+      submission.skillId= formData.skillId;
+      try {
+          dispatch(createReviewThunk(submission))
+          closeModal()
+      } catch (e) {
+          console.log(e);
+      }
+ } else {
+      submission.reviewId = formData.id;
+      try {
+          dispatch(updateReviewThunk(submission))
+          closeModal()
+      } catch (e) {
+          console.log(e)
+      }
+ }
   };
 
   return (
     <div>
-      <h2>Create Review</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Review Text:</label>
-          <textarea
+       <h1>{type === "create" ? "Add Review" : "Update Review"}</h1>
+       {errors.length ? errors.map(e => (<p className='error'>{e}</p>)) : null}
+      <form onSubmit={handleSubmit} id='review-form'>
+          <label htmlFor='text'>text</label>
+          {/* <textarea
             value={reviewText}
             onChange={(e) => setReviewText(e.target.value)}
-          />
-        </div>
-        <div>
-          <label>Stars:</label>
+          /> */}
+            <input
+                    id="review-text"
+                    placeholder="What would you like to say?"
+                    type="text"
+                    value={text}
+                    onChange={e => setText(e.target.value)}
+                />
+
+
+          {/* <label>Stars:</label>
           <input
             type="number"
             min="1"
             max="5"
             value={stars}
             onChange={(e) => setStars(e.target.value)}
-          />
-        </div>
-        {error && <div className="error-message">{error}</div>}
-        <button type="submit">Submit Review</button>
+          /> */}
+
+<button   type="submit">{type === "create" ? "Create Review" : "Update Review"}</button>
       </form>
     </div>
   );
 };
 
-export default CreateReview;
+export default CreateReview

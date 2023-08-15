@@ -7,34 +7,34 @@ def seed_reviews():
             "reviewer_id": 1,
             "skill_id": 2,
             "text": 'Great graphic design work!!',
-            'stars': 5
+            # 'stars': 5
 
         },
         {
             "reviewer_id": 2,
             "skill_id": 3,
             "text": 'Excellent writing skills!',
-            "stars" : 3
+            # "stars" : 3
         },
         {
             "reviewer_id": 3,
             "skill_id": 4,
             "text": 'Professional video editing!',
-            "stars": 2
+            # "stars": 2
 
         },
         {
             "reviewer_id": 4,
             "skill_id": 5,
             "text": 'Amazing photography skills!',
-            "stars": 4
+            # "stars": 4
 
         },
         {
             "reviewer_id": 5,
             "skill_id": 1,
             "text": 'Impressive coding expertise!',
-            "stars": 1
+            # "stars": 1
 
         },
     ]:

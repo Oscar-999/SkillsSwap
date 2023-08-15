@@ -75,7 +75,7 @@ const SingleSkill = () => {
       )}
 
       <div className="reviews-container">
-        <h2>Reviews:</h2>
+      <h2>Reviews:</h2>
         {reviews.length === 0 ? (
           <p>No reviews available.</p>
         ) : (
@@ -91,7 +91,7 @@ const SingleSkill = () => {
 
         {/* Render CreateReview component as a modal */}
         {isCreateReviewModalOpen && (
-          <CreateReview skillId={skillId} closeModal={() => setIsCreateReviewModalOpen(false)} />
+          <CreateReview type="create" formData={{ text: "", skillId }} closeModal={() => setIsCreateReviewModalOpen(false)} />
         )}
 
         {/* Button to open the CreateReview modal */}

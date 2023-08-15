@@ -1,9 +1,11 @@
 import { useModal } from '../../../../context/Modal'
 import { deleteSkillThunk } from '../../../../store/skill'
+
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 import './Delete.css'
+import { deleteReviewThunk } from '../../../../store/review'
 
 const DeleteMulti = ({type, id}) => {
     const {closeModal} = useModal();
@@ -16,6 +18,9 @@ const DeleteMulti = ({type, id}) => {
             if (type === "skill") {
                 dispatch(deleteSkillThunk(id)).then(() => history.push("/skills"));
             }
+            if (type === 'review') {
+                dispatch(deleteReviewThunk(id))
+            }
             return closeModal()
         } catch (e) {
             return setErrorMessage("There was a problem. Please refresh")
@@ -25,7 +30,7 @@ const DeleteMulti = ({type, id}) => {
 
     return (
         <div className='delete-wrapper'>
-            <h2 className='delete-head'>Are you sure you want to delete this {type === "skill" ? "skill" : "request"}</h2>
+            <h2 className='delete-head'>Are you sure you want to delete this {type === "skill" ? "skill" : "review"}</h2>
             <h2 className='warning'>This wont be undone</h2>
             <p className='errors'>{errorMessage}</p>
             <div>

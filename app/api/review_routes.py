@@ -35,16 +35,10 @@ def edit_review(reviewId):
     if form.validate_on_submit():
         review = Review.query.filter(Review.id == reviewId).first()
 
-        if not review:
-            return jsonify({"message": "Review couldn't be found"}), 404
-
-        if review.reviewer_id != current_user.id:
-            return jsonify({"message": "You don't have permission to update this review"}), 403
-
         if form.data["text"]:
             review.text = form.data["text"]
-        if form.data["stars"]:
-            review.stars = form.data["stars"]
+        # if form.data["stars"]:
+        #     review.stars = form.data["stars"]
 
         db.session.commit()
 
