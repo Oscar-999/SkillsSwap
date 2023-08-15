@@ -10,18 +10,16 @@ review_routes = Blueprint('review', __name__)
 @login_required
 def delete_review(reviewId):
 
-    review = Review.query.get(reviewId)
-
-    if review is None:
-        return jsonify({'message': "Review doesn't exist"}), 404
-
-    if current_user.id != review.reviewer_id:
-        return jsonify({'message': "You do not have permission to delete this review"}), 403
+    review = Review.query.filter(Review.id == reviewId).first()
 
     db.session.delete(review)
     db.session.commit()
 
-    return jsonify({'message': 'Review deleted success'}), 200
+    message = f"Channel {reviewId} deleted"
+
+    print(message)
+
+    return {"message": message}
 
 
 @review_routes.route('<int:reviewId>', methods=["PUT"])
