@@ -64,8 +64,7 @@ export const createReviewThunk =  formData => async (dispatch) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        name: formData.name,
-        description: formData.text
+        text: formData.text
       }),
     });
 
@@ -119,6 +118,7 @@ const initialState = {
 
 // Reducer
 const reviewsReducer = (state = initialState, action) => {
+  
   switch (action.type) {
     case GET_REVIEWS:
       return {
