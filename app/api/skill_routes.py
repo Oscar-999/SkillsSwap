@@ -1,10 +1,11 @@
 from flask import Blueprint, jsonify, session, request
 from flask_login import current_user, login_required
-from app.models import User, Skill,Review, db
+from app.models import User, Skill, Review, db
 from .AWS_helpers import get_unique_filename, upload_file_to_s3, remove_file_from_s3
 from app.forms import CreateSkillForm, UpdateSkillForm, CreateReviewForm
 
 skill_routes = Blueprint('skill', __name__)
+
 
 @skill_routes.route('/all', methods=['GET'])
 @login_required
@@ -32,7 +33,6 @@ def get_skill_reviews(skillId):
         review_list.append(review.to_dict())
 
     return jsonify(review_list)
-
 
 
 @login_required
@@ -63,8 +63,9 @@ def delete_skill(skillId):
 
     return jsonify({'message': 'Skill deleted success'}), 200
 
+
 @login_required
-@skill_routes.route('/create', methods =['POST'])
+@skill_routes.route('/create', methods=['POST'])
 def create_skill():
     form = CreateSkillForm()
 
@@ -74,7 +75,6 @@ def create_skill():
             name=form.data['name'],
             owner_id=current_user.id,
             price=form.data['price'])
-
 
         description = form.data['description']
         newSkill.description = description if description != None else ""
@@ -88,7 +88,8 @@ def create_skill():
             newSkill.skill_image = uploadSkillImage['url']
 
         secondary_image = form.data['secondary_image']
-        secondary_image.filename = get_unique_filename(secondary_image.filename)
+        secondary_image.filename = get_unique_filename(
+            secondary_image.filename)
         uploadSecondaryImage = upload_file_to_s3(secondary_image)
         if 'url' not in uploadSecondaryImage:
             return uploadSecondaryImage
@@ -146,7 +147,8 @@ def edit_skill(skillId):
 
         secondary_image = form.data['secondary_image']
         if secondary_image:
-            secondary_image.filename = get_unique_filename(secondary_image.filename)
+            secondary_image.filename = get_unique_filename(
+                secondary_image.filename)
             uploadSecondaryImage = upload_file_to_s3(secondary_image)
             if 'url' in uploadSecondaryImage:
                 skill.secondary_image = uploadSecondaryImage['url']
@@ -166,35 +168,25 @@ def edit_skill(skillId):
         return form.errors, 400
 
 
-
 @skill_routes.route('/<int:skill_id>/reviews', methods=["POST"])
 def create_review(skill_id):
     form = CreateReviewForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
+    form.csrf_token.data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
-        review_text = form.data['review_text']
-        stars = form.data['stars']
+        new_review = Review(
+            skill_id=skill_id,
+            reviewer_id=current_user.id,
+            text=form.data["review_text"],
+            stars=form.data["stars"]
 
-        try:
-            skill = Skill.query.get(skill_id)
+        )
+        print(new_review)
+        db.session.add(new_review)
+        db.session.commit()
 
-            if not skill:
-                return jsonify({"message": "Skill couldn't be found"}), 404
-
-            new_review = Review(
-                skill_id=skill.id,
-                reviewer_id=current_user.id,
-                review_text=review_text,
-                stars=stars
-            )
-            db.session.add(new_review)
-            db.session.commit()
-
-            return jsonify(new_review.to_dict()), 201
-
-        except Exception as error:
-            return jsonify({"message": "An error occurred", "error": str(error)}), 500
-    else:
-        errors = {field.name: field.errors for field in form}
-        return jsonify({"message": "Form validation failed", "errors": errors}), 400
+        return new_review.to_dict()
+    print(form.errors)
+    if form.errors:
+        return form.errors
+    return {"error": "An unknown error has occcured"}  # need error messages

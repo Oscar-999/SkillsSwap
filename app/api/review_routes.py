@@ -41,8 +41,8 @@ def edit_review(reviewId):
         if review.reviewer_id != current_user.id:
             return jsonify({"message": "You don't have permission to update this review"}), 403
 
-        if form.data["review_text"]:
-            review.review_text = form.data["review_text"]
+        if form.data["text"]:
+            review.text = form.data["text"]
         if form.data["stars"]:
             review.stars = form.data["stars"]
 
