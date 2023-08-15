@@ -50,3 +50,15 @@ def edit_review(reviewId):
         return jsonify({"message": "Form validation failed", "errors": form.errors}), 400
 
     return jsonify({"error": "An unknown error has occurred"}), 500
+
+
+
+@review_routes.route('/current', methods=['GET'])
+@login_required
+def get_user_reviews():
+
+    """
+    Get a list of all reviews written by the current user.
+    """
+    user_reviews = Review.query.filter_by(reviewer_id=current_user.id).all()
+    return jsonify([review.to_dict() for review in user_reviews])
