@@ -4,6 +4,6 @@ from wtforms.validators import DataRequired,  ValidationError
 
 
 class CreateReviewForm(FlaskForm):
-    text = StringField("Name")
-    stars = IntegerField("Stars", validators=[DataRequired()])
+    text = StringField("Text")
+    # stars = IntegerField("Stars", validators=[DataRequired()])
     submit = SubmitField("Submit")

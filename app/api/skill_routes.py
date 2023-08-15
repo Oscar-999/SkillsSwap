@@ -171,22 +171,24 @@ def edit_skill(skillId):
 @skill_routes.route('/<int:skill_id>/reviews', methods=["POST"])
 def create_review(skill_id):
     form = CreateReviewForm()
-    form.csrf_token.data = request.cookies['csrf_token']
+    form.csrf_token.data = request.cookies.get('csrf_token')
 
     if form.validate_on_submit():
         new_review = Review(
             skill_id=skill_id,
             reviewer_id=current_user.id,
-            text=form.data["review_text"],
-            stars=form.data["stars"]
-
+            text=form.text.data,
+            # stars=form.stars.data
         )
-        print(new_review)
+
         db.session.add(new_review)
         db.session.commit()
 
-        return new_review.to_dict()
-    print(form.errors)
-    if form.errors:
-        return form.errors
-    return {"error": "An unknown error has occcured"}  # need error messages
+        return jsonify(new_review.to_dict())  # Return review data as JSON
+    else:
+        error_messages = []
+        for field, errors in form.errors.items():
+            for error in errors:
+                error_messages.append(f"{form[field].label.text}: {error}")
+
+        return jsonify({"errors": error_messages}), 400
