@@ -56,14 +56,17 @@ export const deleteReviewThunk = (reviewId) => async (dispatch) => {
   }
 };
 
-export const createReviewThunk = (skillId, reviewData) => async (dispatch) => {
+export const createReviewThunk =  formData => async (dispatch) => {
   try {
-    const res = await fetch(`/api/skills/${skillId}/reviews`, {
+    const res = await fetch(`/api/skills/${formData.skillId}/reviews`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(reviewData),
+      body: JSON.stringify({
+        name: formData.name,
+        description: formData.text
+      }),
     });
 
     if (res.ok) {
