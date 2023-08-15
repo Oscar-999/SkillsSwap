@@ -1,9 +1,9 @@
 import CreateReview from "./index";
 
 
-function CreateChannelModal({ skillId }) {
+function CreateReviewModal({ skillId }) {
   const formData = { text: "",  skillId };
   return <CreateReview type="create" formData={formData} />;
 }
 
-export default CreateChannelModal;
+export default CreateReviewModal;

@@ -10,6 +10,7 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import OpenModalButton from '../../OpenModalButton';
 import SkillManger from '../Manager';
 import CreateReview from '../../Reviews/CreateReview'; // Import CreateReview component
+import CreateReviewModal from '../../Reviews/CreateReview/ModalCreateReview';
 
 const defaultImage = "https://t4.ftcdn.net/jpg/04/00/24/31/360_F_400243185_BOxON3h9avMUX10RsDkt3pJ8iQx72kS3.jpg"
 
@@ -94,8 +95,8 @@ const SingleSkill = () => {
           <CreateReview type="create" formData={{ text: "", skillId }} closeModal={() => setIsCreateReviewModalOpen(false)} />
         )}
 
-        {/* Button to open the CreateReview modal */}
-        <button onClick={() => setIsCreateReviewModalOpen(true)}>Create Review</button>
+
+<OpenModalButton  buttonText="Create Review" modalComponent={<CreateReviewModal skillId={skill.id} />} />
       </div>
     </div>
   );
