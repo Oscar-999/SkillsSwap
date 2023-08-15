@@ -81,7 +81,7 @@ const SingleSkill = () => {
         ) : (
           reviews.map((review) => (
             <div key={review.id} className="review-item">
-              <p>{review.reviewText}</p>
+              <p>{review.text}</p>
               <p>Reviewer ID: {review.reviewerId}</p>
               <p>Created At: {review.createdAt}</p>
               {/* Display other review properties */}
