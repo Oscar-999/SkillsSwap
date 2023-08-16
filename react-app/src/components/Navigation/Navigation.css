@@ -41,6 +41,7 @@ a:hover {
   justify-content: space-between;
   margin: 0 1rem;
   align-items: center;
+  width: 100%;
 }
 
 .navButton {
@@ -70,8 +71,6 @@ a:hover {
   right: 40px;
 }
 
-
-
 .profile-dropdown button {
   display: flex;
   justify-content: center;
@@ -81,6 +80,9 @@ a:hover {
   width: 100px;
 }
 
+.profile {
+  padding-right: 40px;
+}
 
 a.active-link {
   transform: translateY(-3px);
@@ -88,13 +90,11 @@ a.active-link {
 
 .nav-links {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   list-style: none;
   margin: 0;
-  padding: 0;
-}
-
-.nav-links li {
-  margin-right: 20px;
+  padding: 20px;
 }
 
 .nav-links a {
@@ -102,8 +102,8 @@ a.active-link {
   color: #2BB0ED;
   font-weight: bold;
   transition: transform 0.2s;
-  /* justify-content: space-between; /
-  / width: 100px; */
+  justify-content: space-between;
+  width: 150px;
   font-size: 20px;
 }
 
