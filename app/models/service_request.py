@@ -12,9 +12,9 @@ class ServiceRequest(db.Model):
 
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     skill_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('skills.id')), nullable=False)
-    request_description = db.Column(db.String)
+    description = db.Column(db.String(255), nullable=False)
     budget = db.Column(db.Integer)
-    name = db.Column(db.String(50))
+    name = db.Column(db.String(50), nullable=False)
     req_image = db.Column(db.String(225))
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow)
@@ -30,7 +30,7 @@ class ServiceRequest(db.Model):
             'id': self.id,
             'userId': self.user_id,
             'skillId': self.skill_id,
-            'requestDescription': self.request_description,
+            'description': self.description,
             'budget': self.budget,
             'name': self.name,
             'reqImage': self.req_image,

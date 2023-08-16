@@ -1,10 +1,11 @@
 from flask import Blueprint, jsonify, session, request
 from flask_login import current_user, login_required
-from app.models import User, Skill, db
+from app.models import User, Skill, Review, db
 from .AWS_helpers import get_unique_filename, upload_file_to_s3, remove_file_from_s3
-from app.forms import CreateSkillForm, UpdateSkillForm
+from app.forms import CreateSkillForm, UpdateSkillForm, CreateReviewForm
 
 skill_routes = Blueprint('skill', __name__)
+
 
 @skill_routes.route('/all', methods=['GET'])
 @login_required
@@ -14,6 +15,24 @@ def get_skills():
     """
     skills = Skill.query.all()
     return jsonify([skill.to_dict() for skill in skills])
+
+
+@skill_routes.route('/<int:skillId>/reviews', methods=['GET'])
+@login_required
+def get_skill_reviews(skillId):
+    """
+    Returns a list of all reviews for the specified skill.
+    """
+    skill = Skill.query.get(skillId)
+
+    if skill is None:
+        return jsonify({'message': "Skill doesn't exist"}), 404
+
+    review_list = []
+    for review in skill.reviews:
+        review_list.append(review.to_dict())
+
+    return jsonify(review_list)
 
 
 @login_required
@@ -38,14 +57,15 @@ def delete_skill(skillId):
 
     if current_user.id != skill.owner_id:
         return jsonify({'message': "You do not have permission to delete this skill"}), 403
-    
+
     db.session.delete(skill)
     db.session.commit()
 
     return jsonify({'message': 'Skill deleted success'}), 200
 
+
 @login_required
-@skill_routes.route('/create', methods =['POST'])
+@skill_routes.route('/create', methods=['POST'])
 def create_skill():
     form = CreateSkillForm()
 
@@ -55,7 +75,6 @@ def create_skill():
             name=form.data['name'],
             owner_id=current_user.id,
             price=form.data['price'])
-
 
         description = form.data['description']
         newSkill.description = description if description != None else ""
@@ -69,7 +88,8 @@ def create_skill():
             newSkill.skill_image = uploadSkillImage['url']
 
         secondary_image = form.data['secondary_image']
-        secondary_image.filename = get_unique_filename(secondary_image.filename)
+        secondary_image.filename = get_unique_filename(
+            secondary_image.filename)
         uploadSecondaryImage = upload_file_to_s3(secondary_image)
         if 'url' not in uploadSecondaryImage:
             return uploadSecondaryImage
@@ -127,7 +147,8 @@ def edit_skill(skillId):
 
         secondary_image = form.data['secondary_image']
         if secondary_image:
-            secondary_image.filename = get_unique_filename(secondary_image.filename)
+            secondary_image.filename = get_unique_filename(
+                secondary_image.filename)
             uploadSecondaryImage = upload_file_to_s3(secondary_image)
             if 'url' in uploadSecondaryImage:
                 skill.secondary_image = uploadSecondaryImage['url']
@@ -145,3 +166,41 @@ def edit_skill(skillId):
         return skill_dict
     else:
         return form.errors, 400
+
+
+@skill_routes.route('/<int:skill_id>/reviews', methods=["POST"])
+def create_review(skill_id):
+    form = CreateReviewForm()
+    form.csrf_token.data = request.cookies.get('csrf_token')
+
+    if form.validate_on_submit():
+        new_review = Review(
+            skill_id=skill_id,
+            reviewer_id=current_user.id,
+            text=form.text.data,
+            # stars=form.stars.data
+        )
+
+        db.session.add(new_review)
+        db.session.commit()
+
+        return jsonify(new_review.to_dict())  # Return review data as JSON
+    else:
+        error_messages = []
+        for field, errors in form.errors.items():
+            for error in errors:
+                error_messages.append(f"{form[field].label.text}: {error}")
+
+        return jsonify({"errors": error_messages}), 400
+
+
+# @skill_routes.route('/<int:skill_id>/request', methods=["POST"])
+
+
+@skill_routes.route('/current', methods=['GET'])
+def get_user_skills():
+    """
+    Get a list of all skills owned by the current user.
+    """
+    user_skills = Skill.query.filter_by(owner_id=current_user.id).all()
+    return jsonify([skill.to_dict() for skill in user_skills])

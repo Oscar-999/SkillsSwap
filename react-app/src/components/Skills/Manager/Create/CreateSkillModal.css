@@ -1,4 +1,5 @@
-.update-wrapper {
+
+.create-wrapper {
     background-color: #f5f5f5;
     padding: 20px;
     border-radius: 8px;
@@ -7,38 +8,38 @@
     margin: 0 auto;
 }
 
-.update-wrapper h1 {
+.create-wrapper h1 {
     font-size: 1.8rem;
     margin-bottom: 20px;
 }
 
-.form-boxx {
+.form-box {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-.form-boxx label {
+.form-box label {
     font-size: 1.1rem;
     color: #333;
 }
 
-.form-boxx input[type="text"],
-.form-boxx input[type="number"],
-.form-boxx input[type="file"] {
+.form-box input[type="text"],
+.form-box input[type="number"],
+.form-box input[type="file"] {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 14px;
 }
 
-.form-boxx input[type="file"] {
+.form-box input[type="file"] {
     border: none;
     background-color: #f5f5f5;
 }
 
-.updbtn {
-    background-color: rgb(25, 120, 164);
+.form-box button {
+    background-color: rgb(83, 223, 12);
     color: #fff;
     padding: 10px;
     border: none;
@@ -48,11 +49,11 @@
     transition: background-color 0.2s ease-in-out;
 }
 
-.updbtn:disabled {
+.form-box button:disabled {
     background-color: #ccc;
     cursor: not-allowed;
 }
 
-.updbtn:hover {
+.form-box button:hover {
     background-color: #0056b3;
 }

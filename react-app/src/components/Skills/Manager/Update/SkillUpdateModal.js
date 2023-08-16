@@ -12,9 +12,9 @@ const SkillUpdateModal = ({ skill }) => {
   const [name, setName] = useState(skill.name);
   const [price, setPrice] = useState(skill.price);
   const [description, setDescription] = useState(skill.description);
-  const [skillImage, setSkillImage] = useState("");
-  const [secondaryImage, setSecondaryImage] = useState("");
-  const [thirdImage, setThirdImage] = useState("");
+  const [skillImage, setSkillImage] = useState();
+  const [secondaryImage, setSecondaryImage] = useState();
+  const [thirdImage, setThirdImage] = useState();
   // eslint-disable-next-line no-unused-vars
   const [error, setError] = useState(null);
   const [disableButton, setDisableButton] = useState(true);
@@ -38,16 +38,16 @@ const SkillUpdateModal = ({ skill }) => {
     form.append("name", name);
     form.append("price", price);
     form.append("description", description);
-    form.append("skillImage", skillImage);
-    form.append("secondaryImage", secondaryImage);
-    form.append("thirdImage", thirdImage);
+    form.append("skill_image", skillImage);
+    form.append("secondary_image", secondaryImage);
+    form.append("third_image", thirdImage);
     form.append("id", skill.id);
 
     dispatch(updateSkillThunk(form)).then((responseData) => {
       if (responseData.error) {
         setError(responseData.error);
       } else {
-        history.push(`/`);
+        history.push(`/skills`);
         closeModal();
       }
     });
@@ -59,13 +59,15 @@ const SkillUpdateModal = ({ skill }) => {
       newErrors.push("Name must be between 1 and 255 characters");
     if (!description.length || description.length > 255)
       newErrors.push("Description must be between 1 and 255 characters");
+    if (price < 1)
+    newErrors.push("Price must be at least 1");
     if (newErrors.length) setDisableButton(true);
-  }, [name, description]);
+  }, [name, description, price]);
 
   return (
-    <div>
+    <div className="update-wrapper">
       <h1>Update Skill</h1>
-      <form className="" onSubmit={handleSubmit} encType="multipart/form-data">
+      <form className="form-boxx" onSubmit={handleSubmit} encType="multipart/form-data">
         <label htmlFor="skill-description">New Skill Name</label>
         <input
           type="text"
@@ -102,7 +104,7 @@ const SkillUpdateModal = ({ skill }) => {
           onChange={(e) => setThirdImage(e.target.files[0])}
           accept="image/*"
         />
-        <button type="submit" disabled={disableButton}>
+        <button type="submit" className="updbtn" disabled={disableButton}>
           Update Skill
         </button>
       </form>

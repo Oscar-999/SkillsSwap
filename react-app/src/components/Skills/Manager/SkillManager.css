@@ -1,0 +1,51 @@
+.modal-wrap-manage {
+    background-color: #282c34;
+    color: #f3f3f5;
+    padding: 20px;
+  
+
+}
+
+.manager-head {
+    color: #2BB0ED;
+    margin: 0px;
+}
+
+.modal-sec {
+    display: flex;
+    flex-direction: column;
+    height: 60px;
+    justify-content: center;
+}
+
+.skill-buttn {
+    padding-left: 10px;
+    background-color: transparent;
+    border: none;
+    color: #b5bac1;
+    text-align: left;
+    margin: 5px;
+    font-size: 1.2em;
+}
+
+.skill-buttn:hover {
+    cursor: pointer;
+    background-color: #404249;
+}
+
+#delete {
+    color: red;
+}
+
+#delete:hover {
+    color: #b5bac1;
+    background-color: rgb(163, 40, 40);
+}
+#update {
+    color: #a7dcff;
+}
+
+#update:hover {
+    color: black;
+    background-color: rgb(167, 220, 255);
+}
