@@ -32,9 +32,10 @@ const LandingPage = () => {
       <div className="request-box">
         <div className="request-outerbox">
 
-            <div className="request-image">
-              <img src={landingTwo} alt="landingTwo" />
-            </div>
+          <div className="request-image">
+            <img src={landingTwo} alt="landingTwo" />
+          </div>
+
           <div className="request-innerbox">
             <div className="request-content">
               <h2>Ready to pick up on Projects?</h2>
@@ -47,8 +48,25 @@ const LandingPage = () => {
               <button className="join-button">See Requests</button>
             </div>
           </div>
+
         </div>
       </div>
+
+      <footer className="Footer">
+        <h2>Skill Swap</h2>
+        <p>Copyright &copy; 2023 Oscar Alcantar. All rights reserved.</p>
+        <div className="footer-grid">
+          <a href="https://github.com/Oscar-999">Github
+            <i className="bx bxl-github bx-flashing"></i>
+          </a>
+          {/* <p> | </p> */}
+          <a href="https://www.linkedin.com/in/oscar-alcantar-800313204/">Linkedin
+            <i class='bx bxl-linkedin-square'></i>
+          </a>
+        </div>
+
+      </footer>
+
     </div>
   );
 };

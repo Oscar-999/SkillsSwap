@@ -49,7 +49,7 @@ const SingleSkill = () => {
             {isOwner && (
               <OpenModalButton
                 modalComponent={<SkillManger skill={skill} />}
-                buttonText="&#x2699;"
+                buttonText="&#x2699; Settings"
                 className={"server-emoji-button"}
               />
             )}
