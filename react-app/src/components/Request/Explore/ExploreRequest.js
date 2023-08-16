@@ -38,7 +38,7 @@ const ExploreRequest = () => {
                 <div className="details">
 
                   <li className="request-name">{request.name}</li>
-                  <li className="request-description">{request.request_description}</li>
+                  <li className="request-description">{request.description}</li>
                   <li className="request-budget">Price: ${request.budget}</li>
                 </div>
 
