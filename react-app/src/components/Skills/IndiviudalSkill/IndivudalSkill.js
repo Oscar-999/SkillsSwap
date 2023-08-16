@@ -114,11 +114,15 @@ const SingleSkill = () => {
     <p>You can't review your own skill.</p>
   ) : userReviews.length === 0 ? (
     <>
-      <button onClick={openCreateReviewModal}>Write a Review</button>
+    <OpenModalButton
+    modalComponent={<CreateReviewModal skillId={skill.id}></CreateReviewModal>}
+    buttonText="Review This skill"
+    />
+      {/* <button onClick={openCreateReviewModal}>Write a Review</button>
       <CreateReviewModal
         skillId={skill.id}
         closeModal={() => setIsCreateReviewModalOpen(false)}
-      />
+      /> */}
     </>
   ) : (
     <p>You've already reviewed this skill.</p>

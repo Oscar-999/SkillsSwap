@@ -1,75 +1,72 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createReviewThunk, updateReviewThunk } from '../../../store/review';
-import {useModal} from '../../../context/Modal'
+import { useModal } from '../../../context/Modal';
+
 const CreateReview = ({ type, formData }) => {
   const dispatch = useDispatch();
-  const {closeModal} = useModal();
-  // const user = useSelector(state => state.session.user);
+  const { closeModal } = useModal();
 
   const [text, setText] = useState(formData.text);
-  // const [stars, setStars] = useState(formData.description);
   const [errors, setErrors] = useState({});
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Validation checks
+    if (text.trim() === '') {
+      setErrors(['Review cannot be empty.']);
+      return; // Don't proceed with submission
+    } else if (text.length < 3) {
+      setErrors(['Review must be at least 3 characters long.']);
+      return; // Don't proceed with submission
+    } else if (text.length > 100) {
+      setErrors(['Review cannot exceed 100 characters.']);
+      return; // Don't proceed with submission
+    }
+
     const submission = {
       text,
-      // stars
     };
 
     if (type === "create") {
-      submission.skillId= formData.skillId;
+      submission.skillId = formData.skillId;
       try {
-          dispatch(createReviewThunk(submission))
-          closeModal()
+        dispatch(createReviewThunk(submission));
+        closeModal();
       } catch (e) {
-          console.log(e);
+        console.log(e);
       }
- } else {
+    } else {
       submission.reviewId = formData.id;
       try {
-          dispatch(updateReviewThunk(submission))
-          closeModal()
+        dispatch(updateReviewThunk(submission));
+        closeModal();
       } catch (e) {
-          console.log(e)
+        console.log(e);
       }
- }
+    }
   };
 
   return (
     <div>
-       <h1>{type === "create" ? "Add Review" : "Update Review"}</h1>
-       {errors.length ? errors.map(e => (<p className='error'>{e}</p>)) : null}
+      <h1>{type === "create" ? "Add Review" : "Update Review"}</h1>
+      {errors.length ? errors.map((e, index) => (<p key={index} className='error'>{e}</p>)) : null}
       <form onSubmit={handleSubmit} id='review-form'>
-          <label htmlFor='text'>text</label>
-          {/* <textarea
-            value={reviewText}
-            onChange={(e) => setReviewText(e.target.value)}
-          /> */}
-            <input
-                    id="review-text"
-                    placeholder="What would you like to say?"
-                    type="text"
-                    value={text}
-                    onChange={e => setText(e.target.value)}
-                />
+        <label htmlFor='text'>Text:</label>
+        <textarea
+          id='review-text'
+          placeholder='What would you like to say?'
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+        />
 
-
-          {/* <label>Stars:</label>
-          <input
-            type="number"
-            min="1"
-            max="5"
-            value={stars}
-            onChange={(e) => setStars(e.target.value)}
-          /> */}
-
-<button   type="submit">{type === "create" ? "Create Review" : "Update Review"}</button>
+        <button type='submit'>
+          {type === "create" ? "Create Review" : "Update Review"}
+        </button>
       </form>
     </div>
   );
 };
 
-export default CreateReview
+export default CreateReview;
