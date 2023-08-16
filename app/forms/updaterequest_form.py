@@ -10,5 +10,5 @@ class UpdateRequestForm(FlaskForm):
     name = StringField("Name", validators=[DataRequired()])
     budget = IntegerField("Budget", validators=[DataRequired()])
     req_image = FileField("Request Image", validators=[FileAllowed(list(ALLOWED_EXTENSIONS))])
-    request_description = StringField("Request Description")
+    description = StringField("Request Description")
     submit = SubmitField("Submit")

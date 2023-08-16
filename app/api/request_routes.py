@@ -6,6 +6,7 @@ from app.forms import CreateRequestForm, UpdateRequestForm
 
 request_routes = Blueprint('request', __name__)
 
+
 @request_routes.route('/all', methods=['GET'])
 @login_required
 def get_request():
@@ -44,8 +45,9 @@ def delete_request(requestId):
 
     return jsonify({'message': 'Request deleted success'}), 200
 
+
 @login_required
-@request_routes.route('/create', methods =['POST'])
+@request_routes.route('/create', methods=['POST'])
 def create_request():
     form = CreateRequestForm()
 
@@ -56,9 +58,8 @@ def create_request():
             owner_id=current_user.id,
             budget=form.data['budget'])
 
-
-        req_description = form.data['request_description']
-        newRequest.req_description = req_description if req_description != None else ""
+        description = form.data['description']
+        newRequest.description = description if description != None else ""
 
         req_image = form.data['req_image']
         req_image.filename = get_unique_filename(req_image.filename)
@@ -67,7 +68,6 @@ def create_request():
             return uploadReqImage
         else:
             newRequest.req_image = uploadReqImage['url']
-
 
         db.session.add(newRequest)
         db.session.commit()
@@ -99,8 +99,8 @@ def edit_request(requestId):
         request.name = form.data['name']
         request.budget = form.data['budget']
 
-        req_description = form.data['request_description']
-        request.req_description = req_description if req_description != None else ""
+        description = form.data['description']
+        request.description = description if description != None else ""
 
         req_image = form.data['req_image']
         if req_image:

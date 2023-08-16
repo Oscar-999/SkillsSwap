@@ -193,7 +193,10 @@ def create_review(skill_id):
 
         return jsonify({"errors": error_messages}), 400
 
-@login_required
+
+# @skill_routes.route('/<int:skill_id>/request', methods=["POST"])
+
+
 @skill_routes.route('/current', methods=['GET'])
 def get_user_skills():
     """
@@ -201,5 +204,3 @@ def get_user_skills():
     """
     user_skills = Skill.query.filter_by(owner_id=current_user.id).all()
     return jsonify([skill.to_dict() for skill in user_skills])
-
-

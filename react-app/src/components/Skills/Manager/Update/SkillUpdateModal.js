@@ -59,8 +59,10 @@ const SkillUpdateModal = ({ skill }) => {
       newErrors.push("Name must be between 1 and 255 characters");
     if (!description.length || description.length > 255)
       newErrors.push("Description must be between 1 and 255 characters");
+    if (price < 1)
+    newErrors.push("Price must be at least 1");
     if (newErrors.length) setDisableButton(true);
-  }, [name, description]);
+  }, [name, description, price]);
 
   return (
     <div className="update-wrapper">
