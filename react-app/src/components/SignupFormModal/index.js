@@ -10,29 +10,72 @@ function SignupFormModal() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-    const [profilePic, setProfilePic] = useState(null); // Profile picture state
+
+    const defaultProfilePic = "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg";
+    const [profilePic, setProfilePic] = useState(null);
+
     const [errors, setErrors] = useState([]);
     const { closeModal } = useModal();
 
+
+
+    const validateEmail = (email) => {
+        return email.includes('@') && email.includes('.');
+    };
+
+    const validatePassword = (password) => {
+        return password.length > 7 && password.length <= 20;
+    };
+
+    const validateUserName = (username) => {
+        return username.length > 3 && username.length <= 15;
+    }
+
+    const validateProfilePicUrl = (url) => {
+        const allowedExtensions = [".jpg", ".jpeg", ".png"];
+        const isValidExtension = allowedExtensions.some(ext => url.toLowerCase().endsWith(ext));
+        return isValidExtension;
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (password === confirmPassword) {
-            const formData = new FormData(); // Create a FormData object
-            formData.append("username", username);
-            formData.append("email", email);
-            formData.append("password", password);
-            formData.append("profile_picture", profilePic); // Append profile picture
+        const newErrors = [];
 
-            const data = await dispatch(signUp(formData));
-            if (data) {
-                setErrors(data);
-            } else {
-                closeModal();
-            }
+        if (!validateEmail(email)) {
+            newErrors.push("Email must include '@' and '.' .");
+        }
+
+        if (!validatePassword(password)) {
+            newErrors.push("Password must be between 8 and 20 characters.");
+        }
+
+        if (!validateUserName(username)) {
+            newErrors.push("Username must be between 4 and 15 characters.")
+        }
+
+        if (password !== confirmPassword) {
+            newErrors.push("Confirm Password field must match the Password field.");
+        }
+
+        if (newErrors.length > 0) {
+            setErrors(newErrors);
+            return;
+        }
+
+        setProfilePic(profilePic || defaultProfilePic);
+
+
+        const formData = new FormData();
+        formData.append("username", username);
+        formData.append("email", email);
+        formData.append("password", password);
+        formData.append("profile_picture", profilePic);
+
+        const data = await dispatch(signUp(formData));
+        if (data) {
+            setErrors(data);
         } else {
-            setErrors([
-                "Confirm Password field must be the same as the Password field",
-            ]);
+            closeModal();
         }
     };
 

@@ -1,52 +1,48 @@
 .skill-delete-container {
-    background-color: #2b2d31;
-    color: #b5bac1;
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+  background-color: #2b2d31;
+  color: #b5bac1;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .skill-delete-container .delete-head {
-    color: honeydew;
+  color: red;
+  margin-top: 10px;
 }
 
 .skill-delete-container .warning {
-    margin-top: 55px;
-    color: red;
+  margin-top: 30px;
+  color: red;
 }
 
-.skill-delete-container .deletionbuttn {
-    background-color: red;
-    border-color: red;
-    color: white;
-    border-radius: 15px;
-    margin-right: 10px;
+.skill-delete-container .deletion-button {
+  background-color: rgb(255, 94, 0);
+  color: white;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.skill-delete-container .deletionbuttn:hover {
-    cursor: pointer;
-    background-color: red;
-    color: transparent;
-    border-color: black;
-    box-shadow: inset 2.5px 2.5px rgb(163, 40, 40);
-    text-shadow: 1.5px 1.5px white;
+.skill-delete-container .deletion-button:hover {
+  background-color: #a90303;
 }
 
-.skill-delete-container .cancelbttn {
-    background-color: #b5bac1;
-    border-color: #b5bac1;
-    color: white;
-    border-radius: 15px;
+.skill-delete-container .cancel-button {
+  background-color: rgb(255, 255, 255);
+  color: black;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.skill-delete-container .cancelbttn:hover {
-    cursor: pointer;
-    background-color: #b5bac1;
-    color: transparent;
-    border-color: black;
-    box-shadow: inset 2.5px 2.5px #9ca0a7;
-    text-shadow: 1.5px 1.5px white;
+.skill-delete-container .cancel-button:hover {
+  background-color: rgba(180, 180, 180, 0.814);
 }
 
 
@@ -55,67 +51,51 @@
 
 
 .review-delete-container {
-    background-color: #2a2a2a;
-    color: #fff;
-    border-radius: 10px;
-    padding: 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  }
+  background-color: #282c34;
+  text-align: center;
+  padding: 50px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  width: 250px;
+  height: 250px;
+  margin: 0 auto;
+}
 
-  .review-delete-container .delete-head {
-    color: #ff6464;
-    font-size: 24px;
-    margin-bottom: 15px;
-  }
+.review-delete-container .delete-head {
+  color: #ff6464;
+  font-size: 24px;
+  margin-bottom: 15px;
+}
 
-  .review-delete-container .warning {
-    margin-top: 15px;
-    color: #ff6464;
-    font-size: 16px;
-  }
+.review-delete-container .warning {
+  margin-top: 15px;
+  color: #ff6464;
+  font-size: 16px;
+}
 
-  .review-delete-container .deletion-button {
-    background-color: #ff6464;
-    border: none;
-    color: #fff;
-    border-radius: 8px;
-    padding: 12px 24px;
-    margin-top: 30px;
-    cursor: pointer;
-    font-size: 18px;
-    transition: background-color 0.3s, box-shadow 0.3s;
-  }
+.review-delete-container .deletion-button {
+  background-color: rgb(255, 94, 0);
+  color: white;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
-  .review-delete-container .deletion-button:hover {
-    background-color: #ff4e4e;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-  }
+.review-delete-container .deletion-button:hover {
+  background-color: #a90303;
+}
 
-  .review-delete-container .deletion-button:focus {
-    outline: none;
-  }
+.review-delete-container .cancel-button {
+  background-color: rgb(255, 255, 255);
+  color: black;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
-  .review-delete-container .cancel-button {
-    background-color: transparent;
-    border: 2px solid #fff;
-    color: #fff;
-    border-radius: 8px;
-    padding: 12px 24px;
-    margin-top: 15px;
-    cursor: pointer;
-    font-size: 18px;
-    transition: border-color 0.3s, color 0.3s;
-  }
-
-  .review-delete-container .cancel-button:hover {
-    border-color: #ff6464;
-    color: #ff6464;
-  }
-
-  .review-delete-container .cancel-button:focus {
-    outline: none;
-  }
+.review-delete-container .cancel-button:hover {
+  background-color: rgba(180, 180, 180, 0.814);
+}

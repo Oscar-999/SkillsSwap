@@ -28,56 +28,53 @@ def get_single_request(requestId):
     return jsonify(request.to_dict()), 200
 
 
-@login_required
 @request_routes.route('/<int:requestId>', methods=['DELETE'])
+@login_required
 def delete_request(requestId):
 
-    request = ServiceRequest.query.get(requestId)
-
-    if request is None:
-        return jsonify({'message': "Request doesn't exist"}), 404
-
-    if current_user.id != request.owner_id:
-        return jsonify({'message': "You do not have permission to delete this request"}), 403
+    request = ServiceRequest.query.filter(ServiceRequest.id == requestId).first()
 
     db.session.delete(request)
     db.session.commit()
 
-    return jsonify({'message': 'Request deleted success'}), 200
+    message = f"Request {requestId} deleted"
 
+    print(message)
 
-@login_required
-@request_routes.route('/create', methods=['POST'])
-def create_request():
-    form = CreateRequestForm()
+    return {"message": message}
 
-    form['csrf_token'].data = request.cookies['csrf_token']
-    if form.validate_on_submit():
-        newRequest = ServiceRequest(
-            name=form.data['name'],
-            owner_id=current_user.id,
-            budget=form.data['budget'])
+# @login_required
+# @request_routes.route('/create', methods=['POST'])
+# def create_request():
+#     form = CreateRequestForm()
 
-        description = form.data['description']
-        newRequest.description = description if description != None else ""
+#     form['csrf_token'].data = request.cookies['csrf_token']
+#     if form.validate_on_submit():
+#         newRequest = ServiceRequest(
+#             name=form.data['name'],
+#             owner_id=current_user.id,
+#             budget=form.data['budget'])
 
-        req_image = form.data['req_image']
-        req_image.filename = get_unique_filename(req_image.filename)
-        uploadReqImage = upload_file_to_s3(req_image)
-        if 'url' not in uploadReqImage:
-            return uploadReqImage
-        else:
-            newRequest.req_image = uploadReqImage['url']
+#         description = form.data['description']
+#         newRequest.description = description if description != None else ""
 
-        db.session.add(newRequest)
-        db.session.commit()
+#         req_image = form.data['req_image']
+#         req_image.filename = get_unique_filename(req_image.filename)
+#         uploadReqImage = upload_file_to_s3(req_image)
+#         if 'url' not in uploadReqImage:
+#             return uploadReqImage
+#         else:
+#             newRequest.req_image = uploadReqImage['url']
 
-        request_dict = newRequest.to_dict()
-        print('success request route')
-        return request_dict
-    else:
-        print('fail request route')
-        return form.errors, 400
+#         db.session.add(newRequest)
+#         db.session.commit()
+
+#         request_dict = newRequest.to_dict()
+#         print('success request route')
+#         return request_dict
+#     else:
+#         print('fail request route')
+#         return form.errors, 400
 
 
 @login_required
