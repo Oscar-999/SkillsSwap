@@ -11,7 +11,7 @@ import LandingPage from "./components/LandingPage/LandingPage";
 import SingleSkill from "./components/Skills/IndiviudalSkill/IndivudalSkill";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
 import SignupFormPage from "./components/SignupFormPage";
-import DarkMode from "./components/DarkMode/DarkMode";
+// import DarkMode from "./components/DarkMode/DarkMode";
 // import ExploreRequest from "./components/Request/Explore/ExploreRequest";
 function App() {
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ function App() {
   return (
     <>
       <Navigation isLoaded={isLoaded} />
-      <DarkMode/>
+      {/* <DarkMode/> */}
       {isLoaded && (
         <Switch>
           <Route  exact path="/" component={LandingPage}/>
