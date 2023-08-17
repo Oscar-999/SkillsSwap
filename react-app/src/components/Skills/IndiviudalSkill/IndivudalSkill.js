@@ -11,6 +11,8 @@ import DeleteMulti from "../Manager/Delete/Delete";
 import OpenModalButton from "../../OpenModalButton";
 import SkillManger from "../Manager";
 import CreateReviewModal from "../../Reviews/CreateReview/ModalCreateReview";
+import CreateRequestModal from "../../Request/Manage/Create/CreateRequestModal";
+import { skillRequestThunk } from "../../../store/srequest";
 
 const defaultImage =
   "https://t4.ftcdn.net/jpg/04/00/24/31/360_F_400243185_BOxON3h9avMUX10RsDkt3pJ8iQx72kS3.jpg";
@@ -21,12 +23,14 @@ const SingleSkill = () => {
 
   useEffect(() => {
     dispatch(loadSingleSkillThunk(skillId));
-    dispatch(fetchReviews(skillId)); // Fetch reviews
+    dispatch(fetchReviews(skillId));
+    dispatch(skillRequestThunk(skillId)); // Fetch reviews
   }, [dispatch, skillId]);
 
   const skill = useSelector((state) => state.skills.singleSkill);
   const user = useSelector((state) => state.session.user);
   const reviews = useSelector((state) => state.reviews.skill.reviews);
+  const requests = useSelector((state) => state.requests.skill.requests);
 
   const userId = user.id;
   const isOwner = userId === skill.ownerId;
@@ -34,7 +38,7 @@ const SingleSkill = () => {
   // const [isCreateReviewModalOpen, setIsCreateReviewModalOpen] = useState(false);
 
   const userReviews = reviews.filter((review) => review.reviewerId === userId);
-
+  const userRequests = requests.filter((request) => request.userId === userId)
   const [activeTab, setActiveTab] = useState("Basic");
 
   const handleTabClick = (tabName) => {
@@ -134,11 +138,7 @@ const SingleSkill = () => {
                   buttonText="Review This skill"
                   id="skill-review"
                 />
-                {/* <button onClick={openCreateReviewModal}>Write a Review</button>
-      <CreateReviewModal
-        skillId={skill.id}
-        closeModal={() => setIsCreateReviewModalOpen(false)}
-      /> */}
+
               </>
             ) : (
               <p>You've already reviewed this skill.</p>
@@ -201,15 +201,55 @@ const SingleSkill = () => {
                   <i class="bx bx-check"></i> Creative Approach
                 </p>
               </div>
-              {/* <OpenModalButton
-                        modalComponent={<DeleteMulti type={"review"} id={review.id} />}
-                        buttonText="Delete Review"
-                        id="delete-review"
-                      /> */}
-              REQUEST-BUTTON
+              {isOwner ? (
+              <p>You can't request your own skill.</p>
+            ) : userRequests.length === 0 ? (
+              <>
+                <OpenModalButton
+                modalComponent={
+                  <CreateRequestModal skillId={skill.id}></CreateRequestModal>
+                }
+                buttonText="Request"
+
+              />
+              </>
+            ) : (
+              <p>You've already requested this skill.</p>
+            )}
             </div>
 
-            <div className="request-channel">Request Channel</div>
+            <div className="request-channel">
+
+              <h2>Request Channel</h2>
+              {requests.length === 0 ? (
+                <p>No requests available.</p>
+              ) : (
+                requests.map((request) => (
+                  <div key={request.id} className="request-item">
+
+                    <p>Name: {request.name}</p>
+                    <p>Description: {request.description}</p>
+                    <p>Budget: {request.budget}</p>
+                    {request.userId === userId && (
+                    <div className="manage-buttons-container">
+                      {/* <OpenModalButton
+                        modalComponent={<UpdateReviewModal review={request} />}
+                        buttonText="Update Request"
+                        id="update-review"
+                      /> */}
+                      <OpenModalButton
+                        modalComponent={
+                          <DeleteMulti type={"request"} id={request.id} />
+                        }
+                        buttonText="Delete Review"
+                        id="delete-review"
+                      />
+                    </div>
+                  )}
+                  </div>
+                ))
+              )}
+            </div>
           </div>
         </div>
       </div>

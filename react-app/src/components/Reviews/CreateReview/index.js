@@ -51,6 +51,7 @@ const CreateReview = ({ type, formData }) => {
   };
 
   return (
+
     <div className='create-review'>
       <h1>{type === "create" ? "Add Review" : "Update Review"}</h1>
       {errors.length ? errors.map((e, index) => (<p key={index} className='error'>{e}</p>)) : null}
@@ -71,6 +72,7 @@ const CreateReview = ({ type, formData }) => {
         </button>
       </form>
     </div>
+    
   );
 };
 

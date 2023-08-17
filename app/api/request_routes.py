@@ -32,7 +32,8 @@ def get_single_request(requestId):
 @login_required
 def delete_request(requestId):
 
-    request = ServiceRequest.query.filter(ServiceRequest.id == requestId).first()
+    request = ServiceRequest.query.filter(
+        ServiceRequest.id == requestId).first()
 
     db.session.delete(request)
     db.session.commit()
@@ -58,13 +59,13 @@ def delete_request(requestId):
 #         description = form.data['description']
 #         newRequest.description = description if description != None else ""
 
-#         req_image = form.data['req_image']
-#         req_image.filename = get_unique_filename(req_image.filename)
-#         uploadReqImage = upload_file_to_s3(req_image)
+#         image = form.data['image']
+#         image.filename = get_unique_filename(image.filename)
+#         uploadReqImage = upload_file_to_s3(image)
 #         if 'url' not in uploadReqImage:
 #             return uploadReqImage
 #         else:
-#             newRequest.req_image = uploadReqImage['url']
+#             newRequest.image = uploadReqImage['url']
 
 #         db.session.add(newRequest)
 #         db.session.commit()
@@ -77,38 +78,38 @@ def delete_request(requestId):
 #         return form.errors, 400
 
 
-@login_required
-@request_routes.route('/<int:requestId>', methods=['PUT'])
-def edit_request(requestId):
+# @login_required
+# @request_routes.route('/<int:requestId>', methods=['PUT'])
+# def edit_request(requestId):
 
-    request = ServiceRequest.query.get(requestId)
+#     request = ServiceRequest.query.get(requestId)
 
-    if request is None:
-        return jsonify({'message': "Request doesn't exist"}), 404
+#     if request is None:
+#         return jsonify({'message': "Request doesn't exist"}), 404
 
-    if current_user.id != request.owner_id:
-        return jsonify({"message": 'You do not have permission to edit this request'}), 403
+#     if current_user.id != request.owner_id:
+#         return jsonify({"message": 'You do not have permission to edit this request'}), 403
 
-    form = UpdateRequestForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
+#     form = UpdateRequestForm()
+#     form['csrf_token'].data = request.cookies['csrf_token']
 
-    if form.validate_on_submit():
-        request.name = form.data['name']
-        request.budget = form.data['budget']
+#     if form.validate_on_submit():
+#         request.name = form.data['name']
+#         request.budget = form.data['budget']
 
-        description = form.data['description']
-        request.description = description if description != None else ""
+#         description = form.data['description']
+#         request.description = description if description != None else ""
 
-        req_image = form.data['req_image']
-        if req_image:
-            req_image.filename = get_unique_filename(req_image.filename)
-            uploadReqImage = upload_file_to_s3(req_image)
-            if 'url' in uploadReqImage:
-                request.req_image = uploadReqImage['url']
+#         image = form.data['image']
+#         if image:
+#             image.filename = get_unique_filename(image.filename)
+#             uploadReqImage = upload_file_to_s3(image)
+#             if 'url' in uploadReqImage:
+#                 request.image = uploadReqImage['url']
 
-        db.session.commit()
+#         db.session.commit()
 
-        req_dict = request.to_dict()
-        return req_dict
-    else:
-        return form.errors, 400
+#         req_dict = request.to_dict()
+#         return req_dict
+#     else:
+#         return form.errors, 400

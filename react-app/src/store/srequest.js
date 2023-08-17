@@ -42,7 +42,7 @@ export const skillRequestThunk = (skillId) => async (dispatch) => {
 
 export const deleteRequestThunk = (requestId) => async (dispatch) => {
     try {
-      const res = await fetch(`/api/reviews/${requestId}`, {
+      const res = await fetch(`/api/requests/${requestId}`, {
         method: 'DELETE'
       });
 
@@ -58,18 +58,18 @@ export const deleteRequestThunk = (requestId) => async (dispatch) => {
   };
 
 
-export const createRequestThunk =  formData => async (dispatch) => {
+export const createRequestThunk =  (formData) => async (dispatch) => {
     try {
-      const res = await fetch(`/api/skills/${formData.skillId}/request`, {
+      const res = await fetch(`/api/skills/${formData.skillId}/requests`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           name: formData.name,
-          budget: formData.budget,
           description: formData.description,
-          req_image: formData.req_image
+          budget: formData.budget,
+          // image: formData.image
         }),
       });
 

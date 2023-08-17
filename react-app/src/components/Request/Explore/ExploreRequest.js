@@ -20,7 +20,6 @@
 
 //   const defaultImage = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/2048px-No_image_available.svg.png"
 
-
 //   return (
 //     <main>
 //       <div className="exploreRequest-welcome">
@@ -33,7 +32,7 @@
 //             <div key={request.id} className="request" title={request.name}>
 //               <Link to={`/requests/${request.id}`}>
 //                 <div className="image">
-//                   <img src={request.reqImage || defaultImage} alt="req" />
+//                   <img src={request.image || defaultImage} alt="req" />
 //                 </div>
 //                 <div className="details">
 
@@ -41,7 +40,6 @@
 //                   <li className="request-description">{request.description}</li>
 //                   <li className="request-budget">Price: ${request.budget}</li>
 //                 </div>
-
 
 //               </Link>
 //             </div>
