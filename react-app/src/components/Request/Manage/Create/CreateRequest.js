@@ -14,9 +14,12 @@ const CreateRequest = ({ type, formData }) => {
   // const [image, setImage] = useState(formData.image);
   const [errors, setErrors] = useState([]);
 
+  const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmitted(true);
+
     // const newErrors = [];
 
     if (name.trim() === '') {
@@ -34,6 +37,16 @@ const CreateRequest = ({ type, formData }) => {
     //   setDisableButton(true);
     //   return;
     // }
+
+    if (description.trim().split(' ').length < 10) {
+      setErrors(['Description must contain at least 10 words.']);
+      return;
+    }
+
+    if (budget < 20) {
+      setErrors(['Budget must be at least $20.']);
+      return;
+    }
 
     const submission = {
       name,
@@ -66,10 +79,10 @@ if (type === 'create') {
 
   return (
     <div className='overall-request'>
-    <div className="create-request">
-      <h1>{type === "create" ? "Create a Request" : "Update Request"}</h1>
-      {errors.length ? errors.map((e, index) => (<p key={index} className='error'>{e}</p>)) : null}
-      <form onSubmit={handleSubmit} id="request-form" encType="multipart/form-data">
+      <div className="create-request">
+        <h1>{type === "create" ? "Create a Request" : "Update Request"}</h1>
+        {errors.length ? errors.map((e, index) => (<p key={index} className='error'>{e}</p>)) : null}
+        <form onSubmit={handleSubmit} id="request-form" encType="multipart/form-data">
         <label id='create-label' htmlFor="request-name">Name:</label>
         <input
           type="text"
@@ -78,14 +91,18 @@ if (type === 'create') {
           onChange={(e) => setName(e.target.value)}
           placeholder="Name your request"
         />
-        <label id='create-label' htmlFor="request-description">Description:</label>
+            <label id='create-label' htmlFor="request-description">Description:</label>
         <textarea
           value={description}
           required
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Describe your request"
         />
-        <label  id='create-label'htmlFor="budget">Budget:</label>
+        {submitted && description.trim().split(' ').length < 10 && (
+          <p className="error">Description must contain at least 10 words.</p>
+        )}
+
+        <label id='create-label' htmlFor="budget">Budget:</label>
         <input
           type="number"
           value={budget}
@@ -93,25 +110,20 @@ if (type === 'create') {
           onChange={(e) => setBudget(e.target.value)}
           placeholder="Set your budget"
         />
-        {/* <label htmlFor="req-image">Request Image:</label>
-        <input
-          type="file"
-          name="request-image"
-          required
-          onChange={(e) => setImage(e.target.files[0])}
-          accept="image/*"
-        /> */}
+        {submitted && budget < 20 && (
+          <p className="error">Budget must be at least $20.</p>
+        )}
+
         <button
           type="submit"
           className={type === "create" ? "create-request-button" : "update-request-button"}
-
         >
           {type === "create" ? "Create Request" : "Update Request"}
         </button>
       </form>
     </div>
-    </div>
-  );
+  </div>
+);
 };
 
 export default CreateRequest;
