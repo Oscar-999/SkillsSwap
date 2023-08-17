@@ -1,0 +1,58 @@
+.create-request {
+    background-color: #282c34;
+    text-align: center;
+    width: 200px;
+    height: 400px;
+}
+
+.create-request h1 {
+    font-size: 30px;
+    margin-bottom: 10px;
+    color: white;
+}
+.error {
+    color: red;
+}
+
+
+
+
+
+
+
+
+#request-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.create-request-button {
+    background-color: #1bbf3f;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.create-request-button:hover {
+    background-color: #0c801f;
+}
+
+
+.update-request-button {
+    background-color: #2BB0ED;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.update-request-button:hover {
+    background-color: #218ACB;
+}

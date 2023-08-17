@@ -1,105 +1,115 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { createRequestThunk } from '../../../../store/srequest';
-import { useModal } from '../../../../context/Modal';
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useModal } from "../../../../context/Modal";
+import { createRequestThunk } from "../../../../store/srequest";
+import './CreateRequest.css'
 
 const CreateRequest = ({ type, formData }) => {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
 
-    const [name, setName] = useState(formData.name)
-    const [description, setDescription] = useState(formData.description);
-    const [budget, setBudget] = useState(formData.budget)
-    const [reqImage, setReqImage] = useState(formData.reqImage)
-    const [errors, setErrors] = useState({});
+  const [name, setName] = useState(formData.name);
+  const [description, setDescription] = useState(formData.description);
+  const [budget, setBudget] = useState(formData.budget);
+  // const [image, setImage] = useState(formData.image);
+  const [errors, setErrors] = useState([]);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // const newErrors = [];
 
-    // Validation checks
     if (name.trim() === '') {
-      setErrors(['Request cannot be empty.']);
+      setErrors(['Name cannot be empty.']);
       return; // Don't proceed with submission
-    } else if (name.length < 3) {
-      setErrors(['Request must be at least 3 characters long.']);
+    } else if (name.length < 8) {
+      setErrors(['Name must be at least 8 characters long.']);
       return; // Don't proceed with submission
     } else if (name.length > 100) {
-      setErrors(['Request cannot exceed 100 characters.']);
+      setErrors(['Name cannot exceed 50 characters.']);
       return; // Don't proceed with submission
     }
+    // if (newErrors.length) {
+    //   setErrors(newErrors);
+    //   setDisableButton(true);
+    //   return;
+    // }
 
     const submission = {
-        name,
-        description,
-        budget,
-        reqImage
-      };
+      name,
+      description,
+      budget,
+      // image,
+    };
 
-    if (type === "create") {
-      submission.skillId = formData.skillId;
-      try {
-        dispatch(createRequestThunk(submission));
-        closeModal();
-      } catch (e) {
-        console.log(e);
-      }
+if (type === 'create') {
+  submission.skillId = formData.skillId
+    try {
+      await dispatch(createRequestThunk(submission)); // Dispatching your thunk
+      closeModal();
+    } catch (e) {
+      console.log(e);
     }
-    // } else {
-    //   submission.reviewId = formData.id;
-    //   try {
-    //     dispatch(updateReviewThunk(submission));
-    //     closeModal();
-    //   } catch (e) {
-    //     console.log(e);
-    //   }
-    // }
   };
+}
+  // useEffect(() => {
+  //   setDisableButton(false);
+  //   const newErrors = [];
+  //   if (!name.trim() || name.length < 3 || name.length > 100)
+  //     newErrors.push("Invalid request name.");
+  //   if (!description.trim()) newErrors.push("Description cannot be empty.");
+  //   if (!budget) newErrors.push("Budget cannot be empty.");
+  //   if (!image) newErrors.push("Please select an image.");
+
+  //   if (newErrors.length) setDisableButton(true);
+  // }, [name, description, budget, image]);
 
   return (
-    <div>
-      <h1>{type === "create" ? "Add Request" : "Update Request"}</h1>
+    <div className='overall-request'>
+    <div className="create-request">
+      <h1>{type === "create" ? "Create a Request" : "Update Request"}</h1>
       {errors.length ? errors.map((e, index) => (<p key={index} className='error'>{e}</p>)) : null}
-      <form onSubmit={handleSubmit} id='request-form' encType="multipart/form-data">
-        <label htmlFor='name'>Name:</label>
+      <form onSubmit={handleSubmit} id="request-form" encType="multipart/form-data">
+        <label id='create-label' htmlFor="request-name">Name:</label>
         <input
           type="text"
-          id='request-name'
-          required
-          placeholder='Name your request'
           value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <label htmlFor='request-description'>Description:</label>
-        <input
-          type="text"
-          id='request-description'
           required
-          placeholder='Describe your request'
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Name your request"
+        />
+        <label id='create-label' htmlFor="request-description">Description:</label>
+        <textarea
           value={description}
+          required
           onChange={(e) => setDescription(e.target.value)}
+          placeholder="Describe your request"
         />
-        <label htmlFor='budget'>Budget:</label>
+        <label  id='create-label'htmlFor="budget">Budget:</label>
         <input
-        type='number'
-          id='budget'
-          placeholder='What would you like to say?'
+          type="number"
           value={budget}
+          required
           onChange={(e) => setBudget(e.target.value)}
+          placeholder="Set your budget"
         />
-        <label htmlFor='req-image'>ReqImage:</label>
+        {/* <label htmlFor="req-image">Request Image:</label>
         <input
-        type='file'
-        name='request-image'
-        id='req-image'
-        value={reqImage}
-        onChange={(e) => setReqImage(e.target.files[0])}
-        accept="image/*"
-        />
+          type="file"
+          name="request-image"
+          required
+          onChange={(e) => setImage(e.target.files[0])}
+          accept="image/*"
+        /> */}
+        <button
+          type="submit"
+          className={type === "create" ? "create-request-button" : "update-request-button"}
 
-        <button type='submit'>
+        >
           {type === "create" ? "Create Request" : "Update Request"}
         </button>
       </form>
+    </div>
     </div>
   );
 };

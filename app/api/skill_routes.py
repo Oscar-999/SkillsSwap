@@ -34,6 +34,7 @@ def get_skill_reviews(skillId):
 
     return jsonify(review_list)
 
+
 @skill_routes.route('/<int:skillId>/requests', methods=['GET'])
 @login_required
 def get_skill_request(skillId):
@@ -211,38 +212,30 @@ def create_review(skill_id):
         return jsonify({"errors": error_messages}), 400
 
 
-@skill_routes.route('/<int:skill_id>/request', methods=["POST"])
+@skill_routes.route('/<int:skill_id>/requests', methods=["POST"])
 def create_request(skill_id):
     form = CreateRequestForm()
     form.csrf_token.data = request.cookies.get('csrf_token')
 
     if form.validate_on_submit():
-        new_request = ServiceRequest(
-            skill_id = skill_id,
-            user_id = current_user.id,
-            name = form.data['name'],
-            description = form.data['description'],
-            budget = form.data['budget']
-        )
+        try:
+            new_request = ServiceRequest(
+                skill_id=skill_id,
+                user_id=current_user.id,
+                name=form.name.data,
+                description=form.description.data,
+                budget=form.budget.data,
+            )
 
-        req_image = form.data['req_image']
-        req_image.filename = get_unique_filename(req_image.filename)
-        uploadReqImage = upload_file_to_s3(req_image)
-        if 'url' not in uploadReqImage:
-            return uploadReqImage
-        else:
-            new_request.req_image = uploadReqImage['url']
+            db.session.add(new_request)
+            db.session.commit()
 
-        db.session.add(new_request)
-        db.session.commit()
-
-        req_dict = new_request.to_dict()
-        print ('success req route')
-        return req_dict
+            return jsonify(new_request.to_dict()), 201
+        except Exception as e:
+            return jsonify({'error': str(e)}), 500
     else:
-        print ('failed req route')
-        return form.errors, 400
-
+        error_messages = [f"{form[field].label.text}: {error}" for field, errors in form.errors.items() for error in errors]
+        return jsonify({'errors': error_messages}), 400
 
 @skill_routes.route('/current', methods=['GET'])
 def get_user_skills():
