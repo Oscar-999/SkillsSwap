@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
-// import SignupFormPage from "./components/SignupFormPage";
+
 import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
@@ -11,6 +11,7 @@ import LandingPage from "./components/LandingPage/LandingPage";
 import SingleSkill from "./components/Skills/IndiviudalSkill/IndivudalSkill";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
 import SignupFormPage from "./components/SignupFormPage";
+import DarkMode from "./components/DarkMode/DarkMode";
 // import ExploreRequest from "./components/Request/Explore/ExploreRequest";
 function App() {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ function App() {
   return (
     <>
       <Navigation isLoaded={isLoaded} />
+      {/* <DarkMode/> */}
       {isLoaded && (
         <Switch>
           <Route  exact path="/" component={LandingPage}/>

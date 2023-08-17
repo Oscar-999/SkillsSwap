@@ -10,14 +10,10 @@ function SignupFormModal() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-
     const defaultProfilePic = "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg";
     const [profilePic, setProfilePic] = useState(null);
-
     const [errors, setErrors] = useState([]);
     const { closeModal } = useModal();
-
-
 
     const validateEmail = (email) => {
         return email.includes('@') && email.includes('.');
@@ -57,13 +53,16 @@ function SignupFormModal() {
             newErrors.push("Confirm Password field must match the Password field.");
         }
 
+        if (!validateProfilePicUrl(profilePic?.name || "")) {
+            newErrors.push("Profile picture must be in JPG, JPEG, or PNG format.");
+        }
+
         if (newErrors.length > 0) {
             setErrors(newErrors);
             return;
         }
 
         setProfilePic(profilePic || defaultProfilePic);
-
 
         const formData = new FormData();
         formData.append("username", username);
