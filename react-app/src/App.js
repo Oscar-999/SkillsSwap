@@ -23,7 +23,7 @@ function App() {
   return (
     <>
       <Navigation isLoaded={isLoaded} />
-      {/* <DarkMode/> */}
+      <DarkMode/>
       {isLoaded && (
         <Switch>
           <Route  exact path="/" component={LandingPage}/>
