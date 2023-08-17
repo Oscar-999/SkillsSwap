@@ -38,8 +38,8 @@ const CreateRequest = ({ type, formData }) => {
     //   return;
     // }
 
-    if (description.trim().split(' ').length < 10) {
-      setErrors(['Description must contain at least 10 words.']);
+    if (description.trim().split(' ').length < 3) {
+      setErrors(['Description must contain at least 3 words.']);
       return;
     }
 
