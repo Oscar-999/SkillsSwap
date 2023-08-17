@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify, session, request
 from flask_login import current_user, login_required
-from app.models import User, Skill, Review, db
+from app.models import User, Skill, Review, ServiceRequest, db
 from .AWS_helpers import get_unique_filename, upload_file_to_s3, remove_file_from_s3
-from app.forms import CreateSkillForm, UpdateSkillForm, CreateReviewForm
+from app.forms import CreateSkillForm, UpdateSkillForm, CreateReviewForm, CreateRequestForm
 
 skill_routes = Blueprint('skill', __name__)
 
@@ -33,6 +33,23 @@ def get_skill_reviews(skillId):
         review_list.append(review.to_dict())
 
     return jsonify(review_list)
+
+@skill_routes.route('/<int:skillId>/requests', methods=['GET'])
+@login_required
+def get_skill_request(skillId):
+    """
+    Returns a list of all reviews for the specified skill.
+    """
+    skill = Skill.query.get(skillId)
+
+    if skill is None:
+        return jsonify({'message': "Skill doesn't exist"}), 404
+
+    request_list = []
+    for service_request in skill.service_requests:
+        request_list.append(service_request.to_dict())
+
+    return jsonify(request_list)
 
 
 @login_required
@@ -194,7 +211,37 @@ def create_review(skill_id):
         return jsonify({"errors": error_messages}), 400
 
 
-# @skill_routes.route('/<int:skill_id>/request', methods=["POST"])
+@skill_routes.route('/<int:skill_id>/request', methods=["POST"])
+def create_request(skill_id):
+    form = CreateRequestForm()
+    form.csrf_token.data = request.cookies.get('csrf_token')
+
+    if form.validate_on_submit():
+        new_request = ServiceRequest(
+            skill_id = skill_id,
+            user_id = current_user.id,
+            name = form.data['name'],
+            description = form.data['description'],
+            budget = form.data['budget']
+        )
+
+        req_image = form.data['req_image']
+        req_image.filename = get_unique_filename(req_image.filename)
+        uploadReqImage = upload_file_to_s3(req_image)
+        if 'url' not in uploadReqImage:
+            return uploadReqImage
+        else:
+            new_request.req_image = uploadReqImage['url']
+
+        db.session.add(new_request)
+        db.session.commit()
+
+        req_dict = new_request.to_dict()
+        print ('success req route')
+        return req_dict
+    else:
+        print ('failed req route')
+        return form.errors, 400
 
 
 @skill_routes.route('/current', methods=['GET'])
