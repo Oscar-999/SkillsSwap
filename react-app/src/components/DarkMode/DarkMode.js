@@ -11,9 +11,9 @@ const DarkMode = () => {
     const setLightMode = () => {
         document.querySelector("body").setAttribute('data-theme', 'light')
     }
-    const toggleTheme = (e) => {
-        if (e.target.checked) setDarkMode
-    }
+    // const toggleTheme = (e) => {
+    //     if (e.target.checked) setDarkMode
+    // }
     return (
         <div className='dark_mode'>
             <input
