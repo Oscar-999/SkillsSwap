@@ -9,6 +9,7 @@ from ..api.AWS_helpers import ALLOWED_EXTENSIONS
 class UpdateRequestForm(FlaskForm):
     name = StringField("Name", validators=[DataRequired()])
     budget = IntegerField("Budget", validators=[DataRequired()])
-    req_image = FileField("Request Image", validators=[FileAllowed(list(ALLOWED_EXTENSIONS))])
+    # image = FileField("Request Image", validators=[
+    #                   FileAllowed(list(ALLOWED_EXTENSIONS))])
     description = StringField("Request Description")
     submit = SubmitField("Submit")
