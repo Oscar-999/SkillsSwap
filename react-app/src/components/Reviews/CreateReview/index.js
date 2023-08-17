@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch,  } from 'react-redux';
 import { createReviewThunk, updateReviewThunk } from '../../../store/review';
 import { useModal } from '../../../context/Modal';
+import "./CreateReview.css"
+
 
 const CreateReview = ({ type, formData }) => {
   const dispatch = useDispatch();
@@ -49,11 +51,11 @@ const CreateReview = ({ type, formData }) => {
   };
 
   return (
-    <div>
+    <div className='create-review'>
       <h1>{type === "create" ? "Add Review" : "Update Review"}</h1>
       {errors.length ? errors.map((e, index) => (<p key={index} className='error'>{e}</p>)) : null}
       <form onSubmit={handleSubmit} id='review-form'>
-        <label htmlFor='text'>Text:</label>
+        <label id="create-label" htmlFor='text'>Text:</label>
         <textarea
           id='review-text'
           placeholder='What would you like to say?'
@@ -61,7 +63,10 @@ const CreateReview = ({ type, formData }) => {
           onChange={(e) => setText(e.target.value)}
         />
 
-        <button type='submit'>
+        <button
+          type='submit'
+          className={type === 'create' ? 'create-review-button' : 'update-review-button'}
+        >
           {type === "create" ? "Create Review" : "Update Review"}
         </button>
       </form>

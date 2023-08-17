@@ -11,7 +11,7 @@ import LandingPage from "./components/LandingPage/LandingPage";
 import SingleSkill from "./components/Skills/IndiviudalSkill/IndivudalSkill";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
 import SignupFormPage from "./components/SignupFormPage";
-import ExploreRequest from "./components/Request/Explore/ExploreRequest";
+// import ExploreRequest from "./components/Request/Explore/ExploreRequest";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -29,7 +29,7 @@ function App() {
           <Route path="/signup" component={SignupFormPage}/>
           <ProtectedRoute exact path="/skills" component={Explore}/>
           <ProtectedRoute exact path="/skills/:skillId" component={SingleSkill}/>
-          <ProtectedRoute exact path="/requests" component={ExploreRequest}/>
+          {/* <ProtectedRoute exact path="/requests" component={ExploreRequest}/> */}
           <Route path="*" component={ErrorPage}/>
         </Switch>
       )}

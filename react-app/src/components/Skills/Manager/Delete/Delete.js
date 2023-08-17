@@ -36,13 +36,14 @@ const DeleteMulti = ({ type, id }) => {
 
   return (
     <div className={`delete-wrapper ${deleteContainerClass}`}>
-      <h2 className="delete-head">Are you sure you want to delete this {type === "skill" ? "skill" : "review"}</h2>
-      <h2 className='warning'>This won't be undone</h2>
+      <h2 className="delete-head">Are you sure you want to delete this {type === "skill" ? "skill" : "review"}?</h2>
+      <h2 className='warning'>This can't be undone</h2>
       <p className='errors'>{errorMessage}</p>
       <div>
         <button onClick={deleter} className={deletionButtonClassName}>Delete it</button>
-        <button onClick={closeModal} className='cancelbttn'>No cancel</button>
-      </div>    </div>
+        <button onClick={closeModal} className='cancel-button'>No cancel</button>
+      </div>
+    </div>
   );
 };
 

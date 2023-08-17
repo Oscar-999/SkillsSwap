@@ -2,13 +2,15 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import session from './session'
 import skillsReducer from './skill';
-import requestsReducer from './request';
+// import requestsReducer from './request';
 import reviewsReducer from './review';
+import requestssReducer from './srequest';
 const rootReducer = combineReducers({
   session,
   skills: skillsReducer,
-  requests: requestsReducer,
-  reviews: reviewsReducer
+  // requests: requestsReducer,
+  reviews: reviewsReducer,
+  requests: requestssReducer
 });
 
 

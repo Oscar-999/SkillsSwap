@@ -15,7 +15,7 @@ def delete_review(reviewId):
     db.session.delete(review)
     db.session.commit()
 
-    message = f"Channel {reviewId} deleted"
+    message = f"Review {reviewId} deleted"
 
     print(message)
 
