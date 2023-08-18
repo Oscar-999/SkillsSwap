@@ -3,13 +3,13 @@
 } */
 
 body {
-  background-color: #E4E7EB;
+  background-color: var(--background);
   font-family: "Proxima Nova", sans-serif;
 }
 
 .App {
   margin-top: 0px;
-  background-color: #E4E7EB;
+  background-color: var(--background);
   padding-top: 70px;
 }
 
@@ -35,16 +35,19 @@ body {
 }
 
 .freelance-outerbox {
-  background-color: white;
+  /* background-color: white; */
+  background-color: var(--secondary);
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   padding: 60px;
   border-radius: 100px;
+  color: var(--text);
 }
 
 .request-outerbox {
-  background-color: white;
+  background-color: var(--secondary);
+  color: var(--text);
   display: flex;
   flex-direction: row;
   justify-content: flex-end;

@@ -26,7 +26,7 @@ function SignupFormPage() {
     if (!email.length || !email.includes("@")) newErrors.push("Must include a valid email");
     if (username.length < 4 || 15 < username.length) newErrors.push("Username must be between 4 and 15 characters.");
     if (password !== confirmPassword) newErrors.push("Passwords must match");
-    if (password.length < 1 || 255 < password.length) newErrors.push("Password must be between 1 and 255 characters");
+    if (password.length < 8 || 20 < password.length) newErrors.push("Password must be between 8 and 20 characters");
     if (!profilePic || !profilePic.name) newErrors.push("Profile picture is required");
     const allowedExtensions = [".jpg", ".jpeg", ".png"];
     if (!allowedExtensions.some(ext => profilePic.name.toLowerCase().endsWith(ext))) {
