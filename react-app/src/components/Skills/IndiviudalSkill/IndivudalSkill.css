@@ -188,3 +188,56 @@ p {
 #delete-review:hover {
   background-color: #a90303;
 }
+
+
+.reviews-container {
+  margin-top: 20px;
+  border-top: 1px solid #ccc;
+  padding-top: 20px;
+}
+
+.reviews-container h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.review-item {
+  border: 1px solid #e0e0e0;
+  padding: 15px;
+  margin-bottom: 15px;
+  background-color: #f8f8f8;
+}
+
+.review-item p {
+  margin: 5px 0;
+}
+
+.manage-buttons-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.review-item .manage-buttons-container button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+  background-color: #ff6b6b;
+  color: #fff;
+  border-radius: 4px;
+}
+
+
+
+.review-button-container p {
+  margin-top: 10px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.review-item:hover {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}

@@ -4,6 +4,7 @@ import { Redirect } from "react-router-dom";
 import { signUp } from "../../store/session";
 import './SignupForm.css';
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import Sign from "./assests/images/signupimage.svg"
 
 function SignupFormPage() {
   const dispatch = useDispatch();
@@ -53,20 +54,24 @@ function SignupFormPage() {
   };
 
   return (
-    <div>
+    <div className="signup-form-container">
       <div>
+      <div className="sign-upimage-container">
+        <img src={Sign} alt="SignUpImage" className="signup-image" />
+      </div>
         <div>
           <div>
             <h2>Create an account</h2>
-            <form className='' encType='multipart/form-data' onSubmit={handleSubmit}>
-              <ul className=''>
+            <form className="" encType="multipart/form-data" onSubmit={handleSubmit}>
+              <ul className="error-list">
                 {errors.map((error, idx) => (
-                  <li className="" key={idx}>{error}</li>
+                  <li key={idx}>{error}</li>
                 ))}
               </ul>
               <label>
                 <h5>Email <i style={{ color: 'red' }}>*</i></h5>
                 <input
+                  className="input-field"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -76,6 +81,7 @@ function SignupFormPage() {
               <label>
                 <h5>Username <i style={{ color: 'red' }}>*</i></h5>
                 <input
+                  className="input-field"
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
@@ -85,6 +91,7 @@ function SignupFormPage() {
               <label>
                 <h5>Profile Picture <i style={{ color: 'red' }}>*</i></h5>
                 <input
+                  className="input-field"
                   type="file"
                   required
                   onChange={(e) => setProfilePic(e.target.files[0])}
@@ -94,6 +101,7 @@ function SignupFormPage() {
               <label>
                 <h5>Password <i style={{ color: 'red' }}>*</i></h5>
                 <input
+                  className="input-field"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -103,18 +111,19 @@ function SignupFormPage() {
               <label>
                 <h5>Confirm Password <i style={{ color: 'red' }}>*</i></h5>
                 <input
+                  className="input-field"
                   type="password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   required
                 />
               </label>
-              <button type="submit" className=''>
+              <button type="submit" className="submit-button">
                 Sign Up
               </button>
-              <Link to="/login" className="sing">
-                Already have an account
-              </Link>
+              <div className="signin-link">
+                <Link to="/login">Already have an account</Link>
+              </div>
             </form>
           </div>
         </div>
