@@ -1,5 +1,6 @@
 .create-request {
-    background-color: #282c34;
+    /* background-color: #282c34; */
+    background-color: var(--secondary);
     text-align: center;
     width: 200px;
     height: 400px;

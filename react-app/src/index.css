@@ -2,4 +2,21 @@
 * {
     margin: 0;
     padding: 0;
+    transition: all 0.3s ease-in-out;
   }
+:root {
+  --text: hsl(206, 89%, 7%);
+--background: hsl(206, 88%, 97%);
+--primary: hsl(206, 91%, 52%);
+--secondary: hsl(206, 92%, 90%);
+--accent: hsl(206, 92%, 50%);
+}
+
+
+[data-theme="dark"] {
+  --text: hsl(206, 88%, 97%);
+  --background: hsl(206, 89%, 7%);
+  --primary: hsl(206, 91%, 52%);
+  --secondary: hsl(206, 92%, 10%);
+  --accent: hsl(206, 92%, 80%);
+}

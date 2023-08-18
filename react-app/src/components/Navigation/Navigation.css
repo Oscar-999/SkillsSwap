@@ -30,7 +30,7 @@ a:hover {
 
 .nav-wrap {
   border-bottom: solid grey;
-  background-color: #323F4B;
+  background-color: var(--primary);
   margin: 0;
   padding: 1rem 0;
   overflow: hidden;
@@ -57,7 +57,8 @@ a:hover {
 }
 
 .skillSWAP a {
-  color: #40C3F7;
+  /* color: #40C3F7; */
+  color: var(--text)
 }
 
 .skillSWAP a:hover {
@@ -99,7 +100,8 @@ a.active-link {
 
 .nav-links a {
   text-decoration: none;
-  color: #2BB0ED;
+  color: var(--text);
+  /* color: #2BB0ED; */
   font-weight: bold;
   transition: transform 0.2s;
   justify-content: space-between;
@@ -112,5 +114,6 @@ a.active-link {
 }
 
 .nav-links a.active-link {
-  color: #2BB0ED;
+  /* color: #2BB0ED; */
+  color: var(--text);
 }
