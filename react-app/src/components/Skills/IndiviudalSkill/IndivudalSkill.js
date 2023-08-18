@@ -49,6 +49,12 @@ const SingleSkill = () => {
   //   setIsCreateReviewModalOpen(true);
   // };
 
+  const formatDate = (dateString) => {
+    const dateObject = new Date(dateString);
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    return dateObject.toLocaleDateString("en-US", options);
+  };
+
   return (
     <>
       <div className="individiual-skill-container">
@@ -103,7 +109,7 @@ const SingleSkill = () => {
                 <div key={review.id} className="review-item">
                   <p>{review.text}</p>
                   <p>Reviewer ID: {review.reviewerId}</p>
-                  <p>Created At: {review.createdAt}</p>
+                  <p>Created on {formatDate(review.createdAt)}.</p>
 
                   {/* Render "Update Review" and "Delete Review" buttons for the owner of the review */}
                   {review.reviewerId === userId && (
