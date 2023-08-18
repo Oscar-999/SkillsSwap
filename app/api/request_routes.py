@@ -102,7 +102,7 @@ def delete_request(requestId):
 
 #         image = form.data['image']
 #         if image:
-#             image.filename = get_unique_filename(image.filename)
+#             image.filename = get_unique_filename(req_image.filename)
 #             uploadReqImage = upload_file_to_s3(image)
 #             if 'url' in uploadReqImage:
 #                 request.image = uploadReqImage['url']

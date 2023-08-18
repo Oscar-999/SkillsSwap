@@ -108,7 +108,8 @@ const SingleSkill = () => {
               reviews.map((review) => (
                 <div key={review.id} className="review-item">
                   <p>{review.text}</p>
-                  <p>Reviewer ID: {review.reviewerId}</p>
+                  {/* <img src={review.reviewer.profilePic} alt="profile"/> */}
+                  {/* <p>Reviewer ID: {review.reviewer.username}</p> */}
                   <p>Created on {formatDate(review.createdAt)}.</p>
 
                   {/* Render "Update Review" and "Delete Review" buttons for the owner of the review */}

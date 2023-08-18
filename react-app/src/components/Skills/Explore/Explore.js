@@ -44,6 +44,8 @@ const Explore = () => {
                 <div className="details">
 
                   <li className="skill-name">{skill.name}</li>
+                  {/* <li>{skill.owner.username}</li> */}
+                  {/* <img src={skill.owner.profilePic}></img> */}
                   <li className="skill-description">{skill.description}</li>
                   <li className="skill-price">Price: ${skill.price}</li>
                 </div>
