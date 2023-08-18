@@ -107,11 +107,10 @@ const SingleSkill = () => {
             ) : (
               reviews.map((review) => (
                 <div key={review.id} className="review-item">
+                  {/* <p style={{ fontWeight: 'bold' }}>{review.reviewer.username}</p> */}
+                  {/* <img className="reviewer-profile-pic" src={review.reviewer.profilePic} alt="profile" /> */}
                   <p>{review.text}</p>
-                  {/* <img src={review.reviewer.profilePic} alt="profile"/> */}
-                  {/* <p>Reviewer ID: {review.reviewer.username}</p> */}
-                  <p>Created on {formatDate(review.createdAt)}.</p>
-
+                  <p>{formatDate(review.createdAt)}</p>
                   {/* Render "Update Review" and "Delete Review" buttons for the owner of the review */}
                   {review.reviewerId === userId && (
                     <div className="manage-buttons-container">
@@ -163,9 +162,8 @@ const SingleSkill = () => {
                 Basic
               </h3>
               <h3
-                className={`tab ${
-                  activeTab === "Standard" ? "active-tab" : ""
-                }`}
+                className={`tab ${activeTab === "Standard" ? "active-tab" : ""
+                  }`}
                 onClick={() => handleTabClick("Standard")}
               >
                 Standard
@@ -209,53 +207,53 @@ const SingleSkill = () => {
                 </p>
               </div>
               {isOwner ? (
-              <p>You can't request your own skill.</p>
-            ) : userRequests.length === 0 ? (
-              <>
-                <OpenModalButton
-                modalComponent={
-                  <CreateRequestModal skillId={skill.id}></CreateRequestModal>
-                }
-                buttonText="Request"
-
-              />
-              </>
-            ) : (
-              <p>You've already requested this skill.</p>
-            )}
+                <p>You can't request your own skill.</p>
+              ) : userRequests.length === 0 ? (
+                <>
+                  <OpenModalButton
+                    modalComponent={
+                      <CreateRequestModal skillId={skill.id}></CreateRequestModal>
+                    }
+                    buttonText="Request"
+                    id="create-request-button"
+                  />
+                </>
+              ) : (
+                <p>You've already requested this skill.</p>
+              )}
             </div>
 
             <div className="request-channel">
-
               <h2>Request Channel</h2>
-              {requests.length === 0 ? (
-                <p>No requests available.</p>
-              ) : (
-                requests.map((request) => (
-                  <div key={request.id} className="request-item">
-
-                    <p>Name: {request.name}</p>
-                    <p>Description: {request.description}</p>
-                    <p>Budget: {request.budget}</p>
-                    {request.userId === userId && (
-                    <div className="manage-buttons-container">
-                      {/* <OpenModalButton
+              <div className="request-items-container">
+                {requests.length === 0 ? (
+                  <p>No requests available.</p>
+                ) : (
+                  requests.map((request) => (
+                    <div key={request.id} className="request-item">
+                      <p>Name: {request.name}</p>
+                      <p>Description: {request.description}</p>
+                      <p>Budget: {request.budget}</p>
+                      {request.userId === userId && (
+                        <div className="manage-buttons-container">
+                          {/* <OpenModalButton
                         modalComponent={<UpdateReviewModal review={request} />}
                         buttonText="Update Request"
                         id="update-review"
                       /> */}
-                      <OpenModalButton
-                        modalComponent={
-                          <DeleteMulti type={"request"} id={request.id} />
-                        }
-                        buttonText="Delete Review"
-                        id="delete-review"
-                      />
+                          <OpenModalButton
+                            modalComponent={
+                              <DeleteMulti type={"request"} id={request.id} />
+                            }
+                            buttonText="Delete Request"
+                            id="delete-review"
+                          />
+                        </div>
+                      )}
                     </div>
-                  )}
-                  </div>
-                ))
-              )}
+                  ))
+                )}
+              </div>
             </div>
           </div>
         </div>
