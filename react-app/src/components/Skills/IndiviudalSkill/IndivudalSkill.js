@@ -107,8 +107,8 @@ const SingleSkill = () => {
             ) : (
               reviews.map((review) => (
                 <div key={review.id} className="review-item">
-                  {/* <p style={{ fontWeight: 'bold' }}>{review.reviewer.username}</p> */}
-                  {/* <img className="reviewer-profile-pic" src={review.reviewer.profilePic} alt="profile" /> */}
+                  <p style={{ fontWeight: 'bold' }}>{review.user.username}</p>
+                  <img className="reviewer-profile-pic" src={review.user.profilePic} alt="profile" />
                   <p>{review.text}</p>
                   <p>{formatDate(review.createdAt)}</p>
                   {/* Render "Update Review" and "Delete Review" buttons for the owner of the review */}
@@ -231,6 +231,7 @@ const SingleSkill = () => {
                 ) : (
                   requests.map((request) => (
                     <div key={request.id} className="request-item">
+
                       <p>Name: {request.name}</p>
                       <p>Description: {request.description}</p>
                       <p>Budget: {request.budget}</p>

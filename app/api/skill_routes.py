@@ -21,7 +21,7 @@ def get_skills():
 @login_required
 def get_skill_reviews(skillId):
     """
-    Returns a list of all reviews for the specified skill.
+    Returns a list of all reviews for the specified skill, including user information.
     """
     skill = Skill.query.get(skillId)
 
@@ -30,9 +30,15 @@ def get_skill_reviews(skillId):
 
     review_list = []
     for review in skill.reviews:
-        review_list.append(review.to_dict())
+        review_dict = review.to_dict()
+
+        # Include user information in the review dictionary
+        review_dict['user'] = review.user.to_dict()
+
+        review_list.append(review_dict)
 
     return jsonify(review_list)
+
 
 
 @skill_routes.route('/<int:skillId>/requests', methods=['GET'])
@@ -185,8 +191,8 @@ def edit_skill(skillId):
     else:
         return form.errors, 400
 
-
 @skill_routes.route('/<int:skill_id>/reviews', methods=["POST"])
+@login_required  # Assuming you want to require authentication for creating reviews
 def create_review(skill_id):
     form = CreateReviewForm()
     form.csrf_token.data = request.cookies.get('csrf_token')
@@ -202,7 +208,14 @@ def create_review(skill_id):
         db.session.add(new_review)
         db.session.commit()
 
-        return jsonify(new_review.to_dict())  # Return review data as JSON
+        # Fetch the user object associated with the current_user and convert it to a dictionary
+        user_dict = current_user.to_dict()
+
+        # Include the user information in the new_review dictionary
+        review_data = new_review.to_dict()
+        review_data['user'] = user_dict
+
+        return jsonify(review_data)  # Return review data with user information as JSON
     else:
         error_messages = []
         for field, errors in form.errors.items():
