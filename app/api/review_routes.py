@@ -21,7 +21,6 @@ def delete_review(reviewId):
 
     return {"message": message}
 
-
 @review_routes.route('<int:reviewId>', methods=["PUT"])
 @login_required
 def edit_review(reviewId):
@@ -33,16 +32,20 @@ def edit_review(reviewId):
     if form.validate_on_submit():
         review = Review.query.filter(Review.id == reviewId).first()
 
+        if review.reviewer_id != current_user.id:
+            return jsonify({"message": "You are not authorized to edit this review"}), 403
+
         if form.data["text"]:
             review.text = form.data["text"]
-        # if form.data["stars"]:
-        #     review.stars = form.data["stars"]
+      
 
         db.session.commit()
 
         updated_review = review.to_dict()
 
-        print(updated_review)
+        # Include user information in the response
+        user_dict = current_user.to_dict()
+        updated_review['user'] = user_dict
 
         return updated_review
 
@@ -50,6 +53,7 @@ def edit_review(reviewId):
         return jsonify({"message": "Form validation failed", "errors": form.errors}), 400
 
     return jsonify({"error": "An unknown error has occurred"}), 500
+
 
 
 
