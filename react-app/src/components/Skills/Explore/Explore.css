@@ -7,17 +7,18 @@
 }
 
 .explore-welcome {
-    background-color: #E4E7EB;
+    background-color: var(--secondary);
     margin-bottom: 50px;
 }
 
 .explore-welcome h1 {
+    color: var(--text);
     font-size: 30px;
     text-align: center;
 }
 
 .skill-list {
-    background-color: #E4E7EB;
+    background-color: var(--accent);
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: 30px;
@@ -103,4 +104,3 @@ li {
     -webkit-user-select: none;
     touch-action: manipulation;
 }
-

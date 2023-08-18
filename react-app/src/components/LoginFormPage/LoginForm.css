@@ -5,7 +5,7 @@
 }
 
 .image-container {
-    background-color: #f0f0f0;
+    background-color: var(--background);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,7 +15,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #fff;
+    background-color: var(--background);
     padding: 2rem;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -83,7 +83,7 @@
 }
 
 .image-container {
-    background-color: #f0f0f0;
+    background-color: var(--background);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -93,7 +93,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #fff;
+    background-color: var(--primary);
     padding: 2rem;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -102,7 +102,7 @@
 .form-container h1 {
     text-align: center;
     margin-bottom: 1rem;
-    color: #333;
+    color: var(--text);
 }
 
 .form-container form {
@@ -126,7 +126,7 @@
     display: block;
     font-size: 14px;
     margin-bottom: 5px;
-    color: #333;
+    color: var(--text);
 }
 
 .form-container input[type="text"],
@@ -142,8 +142,8 @@
     display: block;
     width: 100%;
     padding: 12px;
-    background-color: #2BB0ED;
-    color: white;
+    background-color: plum;
+    color: var(--text);
     border: none;
     border-radius: 4px;
     font-size: 16px;
@@ -152,5 +152,5 @@
 }
 
 .form-container button[type="submit"]:hover {
-    background-color: #1E90FF;
+    background-color: var(--accent);
 }
