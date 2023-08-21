@@ -27,7 +27,7 @@ function Navigation({ isLoaded }) {
                   Skills
                 </NavLink>
               </li>
-              <li>
+              {/* <li>
                 <NavLink exact to ="/requests" activeClassName="active-link">
                   Requests
                 </NavLink>
@@ -36,7 +36,7 @@ function Navigation({ isLoaded }) {
                 <NavLink exact to ="/account" activeClassName="active-link">
                   Account
                 </NavLink>
-              </li>
+              </li> */}
             </ul>
           </div>
           {isLoaded && sessionUser && (
