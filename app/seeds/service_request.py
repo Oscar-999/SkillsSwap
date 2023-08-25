@@ -42,7 +42,13 @@ def seed_service_requests():
             "description": "Capture photos for my event",
             "budget": 150,
             "name": "Event Photography",
-            # "image": ""
+        },
+        {
+            "user_id": 1,
+            "skill_id": 20,
+            "description": "Could you carry me in overwatch?",
+            "budget": 150,
+            "name": "Overwatch Carry",
         }
     ]:
         db.session.add(ServiceRequest(**servicerequest))
