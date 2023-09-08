@@ -1,14 +1,14 @@
 # SkillsSwap
 
-MultiverseBnb is a fullstack web application. It is a clone/parody of the website airbnb. You can crete a spot add reviews and even manage bookings. Have fun exploring the different universe you can stay at.
+MultiverseBnb is a fullstack web application. It is a clone of the website fiveer. You can crete a spot add reviews and even manage bookings. Have fun exploring the different universe you can stay at.
 
 Live Site [MultiverseBnb](https://air-bnb-mr42.onrender.com/)
 
 ## Index
 
-[MVP Feature List](https://github.com/Oscar-999/AirBnB/wiki/Features-List) |
-[Database Scheme](https://github.com/Oscar-999/AirBnB/wiki/Db-Diagram) |
-[User Stories](https://github.com/Oscar-999/AirBnB/wiki/User-Stories) |
+[MVP Feature List](https://github.com/Oscar-999/SkillsSwap/wiki/Features-List) |
+[Database Scheme](https://github.com/Oscar-999/SkillsSwap/wiki/Db-Diagram) |
+[User Stories](https://github.com/Oscar-999/SkillsSwap/wiki/User-Stories) |
 [Api Docs](https://github.com/Oscar-999/AirBnB/wiki/Api-Documentaion) |
 
 ## Tech Used
