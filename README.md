@@ -21,7 +21,7 @@ Sonic is a fast and dynamic communication platform inspired by Discord. It allow
 
 ## Getting started
 
-1. Clone this repository: https://github.com/igamus/sonic.git
+1. Clone this repository: https://github.com/Oscar-999/SkillsSwap.git
 2. Install denpendencies into the Backed and the Frontend by making a terminal for each one and then run the following:
    * backend (In base of directory):
        * ` Pipenv install `
