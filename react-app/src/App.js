@@ -12,6 +12,7 @@ import SingleSkill from "./components/Skills/IndiviudalSkill/IndivudalSkill";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
 import SignupFormPage from "./components/SignupFormPage";
 import DarkMode from "./components/DarkMode/DarkMode";
+import AccountPage from "./components/AccountPage/AccountPage";
 // import ExploreRequest from "./components/Request/Explore/ExploreRequest";
 function App() {
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ function App() {
           <Route path="/signup" component={SignupFormPage}/>
           <ProtectedRoute exact path="/skills" component={Explore}/>
           <ProtectedRoute exact path="/skills/:skillId" component={SingleSkill}/>
+          <ProtectedRoute exact path="/account" component={AccountPage} />
           {/* <ProtectedRoute exact path="/requests" component={ExploreRequest}/> */}
           <Route path="*" component={ErrorPage}/>
         </Switch>

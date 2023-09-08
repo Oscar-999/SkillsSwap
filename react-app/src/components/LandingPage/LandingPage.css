@@ -32,10 +32,11 @@ body {
 
 .freelance-content {
   max-width: 500px;
+  text-align: left;
 }
 
 .freelance-outerbox {
-  /* background-color: white; */
+  background-color: white;
   background-color: var(--secondary);
   display: flex;
   flex-direction: row;
@@ -43,7 +44,138 @@ body {
   padding: 60px;
   border-radius: 100px;
   color: var(--text);
+  gap: 50px;
 }
+
+.freelance-content li {
+  text-align: left;
+  color: var(--text);
+
+}
+
+
+
+
+
+.freelance-third-box {
+  display: flex;
+  text-align: center;
+  margin-top: 90px;
+}
+
+.freelance-third-innerbox {
+  width: 100%;
+}
+
+.freelance-third-content {
+  max-width: 100%;
+  text-align: left;
+}
+
+.freelance-third-outerbox {
+  background-color: rgba(76, 218, 223, 0.939);
+  /* background-color: var(--secondary); */
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 60px;
+  color: var(--text);
+  gap: 50px;
+}
+
+.freelance-third-content li {
+  text-align: left;
+  color: var(--text);
+}
+
+.landing-third-page-images {
+  margin-right: 200px;
+}
+
+.freelancer-third-image img {
+  max-width: 100%;
+  height: auto;
+  width: 800px;
+  height: 210px;
+}
+
+
+.freelance-second-box {
+  display: flex;
+  text-align: center;
+  margin-top: 90px;
+}
+
+.freelance-second-innerbox {
+  width: 100%;
+}
+
+.freelance-second-content {
+  max-width: 100%;
+  text-align: left;
+}
+
+.freelance-second-outerbox {
+  background-color: rgb(57, 67, 197);
+  /* background-color: var(--secondary); */
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 60px;
+  color: var(--text);
+  gap: 50px;
+}
+
+.freelance-second-content li {
+  text-align: left;
+  color: var(--text);
+}
+
+
+
+.business-solutions-heading {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: left;
+  color: var(--text);
+
+}
+
+.business-solutions-description {
+  font-size: 16px;
+  margin-top: 10px;
+  color: #777;
+}
+
+
+.business-solutions-list {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.business-solution {
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+}
+
+.business-solutions-list i {
+  content: "\f00c";
+  margin-right: 10px;
+  font-size: 20px;
+  color: #009933;
+}
+
+.business-solution-description {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #777;
+}
+
+
+
 
 .request-outerbox {
   background-color: var(--secondary);
@@ -73,7 +205,114 @@ body {
   width: 500px;
 }
 
+.landing-page-images {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.top-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  gap: 100px;
+}
+
+.bottom-row {
+  display: flex;
+  justify-content: center;
+}
+
+.freelancer-image,
+.third-image,
+.request-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
 .freelancer-image img {
+
+  max-width: 100%;
+  height: auto;
+  width: 200px;
+  height: 100px;
+}
+
+.request-image img {
+  max-width: 90%;
+  height: auto;
+  width: 400px;
+  height: 150px;
+}
+
+.third-image img {
+  max-width: 100%;
+  height: auto;
+  width: 300px;
+  height: 210px;
+}
+
+.freelancer-sec-image img {
+  max-width: 100%;
+  height: auto;
+  width: 600px;
+  height: 200px;
+}
+
+
+
+
+
+
+
+
+
+
+.freelance-signup-box {
+  margin-top: 100px;
+  position: relative;
+  background-image: url('assets/images/person.webp');
+  background-size: cover;
+  background-position: center;
+  padding: 25px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  color: white;
+}
+
+.signup-content {
+  padding: 40px;
+  max-width: 100px;
+}
+
+.signup-content h2 {
+  color: white;
+  font-size: 80px;
+  margin-bottom: 10px;
+}
+
+.signup-content .nav-item a {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #2BB0ED;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.signup-content .nav-item a:hover {
+  background-color: #218ACB;
+}
+
+
+
+/* .freelancer-image img {
   max-width: 100%;
   height: auto;
   border-radius: 20px;
@@ -87,7 +326,7 @@ body {
 
 .request-image {
   width: 40%;
-}
+} */
 
 .find-button,
 .join-button {

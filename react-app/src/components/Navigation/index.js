@@ -12,7 +12,7 @@ function Navigation({ isLoaded }) {
       <header>
         <div className='nav'>
           <div className='skillSWAP'>
-            <li>
+            <li className="nav-item">
               <NavLink className='TitleHeader' exact to="/">
                 <i className="fa-solid"></i>
                 Skill Swap
@@ -22,28 +22,23 @@ function Navigation({ isLoaded }) {
 
           <div>
             <ul className='nav-links'>
-              <li>
-                <NavLink exact to ="/skills" activeClassName="active-link">
+              <li className="nav-item">
+                <NavLink exact to="/skills" activeClassName="active-link">
                   Skills
                 </NavLink>
               </li>
-              {/* <li>
-                <NavLink exact to ="/requests" activeClassName="active-link">
-                  Requests
-                </NavLink>
-              </li>
-              <li>
-                <NavLink exact to ="/account" activeClassName="active-link">
+              <li className="nav-item">
+                <NavLink exact to="/account" activeClassName="active-link">
                   Account
                 </NavLink>
-              </li> */}
+              </li>
             </ul>
           </div>
           {isLoaded && sessionUser && (
             <ul>
               <div className='top'>
                 <div className='profile'>
-                  <li>
+                  <li className="nav-item">
                     <ProfileButton user={sessionUser} />
                   </li>
                 </div>
