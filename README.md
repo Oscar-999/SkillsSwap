@@ -14,6 +14,42 @@ Live Site [SkillsSwap](https://skillswap-pky9.onrender.com/)
 ## Tech Used
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)  ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white) ![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white) ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
 
+## Code I'm Proud Of
+
+```javascript
+function App() {
+  const dispatch = useDispatch();
+  const [isLoaded, setIsLoaded] = useState(false);
+  useEffect(() => {
+    dispatch(authenticate()).then(() => setIsLoaded(true));
+  }, [dispatch]);
+
+  return (
+    <>
+      <Navigation isLoaded={isLoaded} />
+      <DarkMode/>
+      {isLoaded && (
+        <Switch>
+          <Route  exact path="/" component={LandingPage}/>
+          <Route path="/login" component={LoginFormPage}/>
+          <Route path="/signup" component={SignupFormPage}/>
+          <ProtectedRoute exact path="/skills" component={Explore}/>
+          <ProtectedRoute exact path="/skills/:skillId" component={SingleSkill}/>
+          <ProtectedRoute exact path="/account" component={AccountPage} />
+          {/* <ProtectedRoute exact path="/requests" component={ExploreRequest}/> */}
+          <Route path="*" component={ErrorPage}/>
+        </Switch>
+      )}
+    </>
+  );
+}
+
+export default App;
+```
+Explanation :
+
+
+This code sets up the basic structure of a web application, including authentication, navigation, and routing. The DarkMode component is included throughout the application to potentially provide a dark mode feature, since the DarkMode component is nested higher this allws the user to switch between modes seemlessly
 
 ## Getting started
 
@@ -66,5 +102,5 @@ Logged-in Users can
 * Delete/Cancel their booking
 
 
-## Contanct
-Conctact Me[LinkedIn](https://www.linkedin.com/in/oscaralcantar/)
+## Contact
+Contact Me[LinkedIn](https://www.linkedin.com/in/oscaralcantar/)
